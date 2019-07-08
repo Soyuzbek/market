@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    {{ product }}
+{% endblock %}
+{% block content %}
+    <!-- Product Details Area Start -->
+    <div class="single-product-area section-padding-100 clearfix">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-50">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="{% url 'shop' product.category %}">{{ product.category }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-7">
+                    <div class="single_product_thumb">
+                        <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for image in product.image_set.all %}
+                                    {% if forloop.counter == 1 %}
+                                        <li class="active" data-target="#product_details_slider"
+                                            data-slide-to="{{ forloop.counter0 }}"
+                                            style="background-image: url({{ image.image.url }});">
+                                        </li>
+                                    {% else %}
+                                        <li class="" data-target="#product_details_slider"
+                                            data-slide-to="{{ forloop.counter0 }}"
+                                            style="background-image: url({{ image.image.url }});">
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for image in product.image_set.all %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="carousel-item active">
+                                            <a class="gallery_img" href="{{ image.image.url }}">
+                                                <img class="d-block w-100" src="{{ image.image.url }}"
+                                                     alt="{{ forloop.counter }} slide">
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <div class="carousel-item">
+                                            <a class="gallery_img" href="{{ image.image.url }}">
+                                                <img class="d-block w-100" src="{{ image.image.url }}"
+                                                     alt="{{ forloop.counter }} slide">
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="single_product_desc">
+                        <!-- Product Meta Data -->
+                        <div class="product-meta-data">
+                            <div class="line"></div>
+                            <p class="product-price">{% blocktrans %} $ {{ product.price }}{% endblocktrans %}</p>
+                            <a href="{% url 'product' product.id %}">
+                                <h6>{{ product.name }}</h6>
+                            </a>
+                            <!-- Ratings & Review -->
+                            <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+                                <div class="back-stars">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+
+                                    <div class="front-stars" style="width: {{ product.rating }}%">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="review">
+                                    <a href="{% url 'fav' product.pk %}">{% trans 'Add to Favourite' %}</a>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Avaiable -->
+                            <p class="avaibility"><i class="fa fa-circle"></i>{{ product.status }}</p>
+                        </div>
+
+                        <div class="short_overview my-5">
+                            <p>{{ product.description }}</p>
+                        </div>
+
+                        <!-- Add to Cart Form -->
+                        <form class="cart clearfix" method="post" action="{% url 'cart' %}">
+                            {% csrf_token %}
+                            <div class="cart-btn d-flex mb-50">
+                                <p>Qty</p>
+                                <div class="quantity">
+                                    <span class="qty-minus"
+                                          onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
+                                            class="fa fa-caret-down" aria-hidden="true"></i></span>
+                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="20"
+                                           name="quantity" value="1">
+                                    <span class="qty-plus"
+                                          onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
+                                            class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                    <input type="hidden" name="pk" value="{{ product.pk }}">
+                                    <input type="hidden" name="availability" value="{{ product.status }}">
+
+                                </div>
+                            </div>
+                            {#                            <div class="widget color mb-50">#}
+                            {#                                <!-- Widget Title -->#}
+                            {#                                <h6 class="widget-title mb-30">Color</h6>#}
+                            {##}
+                            {#                                <div class="widget-desc">#}
+                            {#                                    <ul class="d-flex">#}
+                            {#                                        {% for color in product.color.all %}#}
+                            {#                                            <li>#}
+                            {#                                                <input type="checkbox" class="color{{ forloop.counter }}">#}
+                            {#                                            </li>#}
+                            {##}
+                            {#                                        {% endfor %}#}
+                            {##}
+                            {#                                        <li><a href="#" class="color2"></a></li>#}
+                            {#                                        <li><a href="#" class="color3"></a></li>#}
+                            {#                                        <li><a href="#" class="color4"></a></li>#}
+                            {#                                        <li><a href="#" class="color5"></a></li>#}
+                            {#                                        <li><a href="#" class="color6"></a></li>#}
+                            {#                                        <li><a href="#" class="color7"></a></li>#}
+                            {#                                        <li><a href="#" class="color8"></a></li>#}
+                            {#                                    </ul>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <button type="submit" name="addtocart" value="5"
+                                    class="btn amado-btn">{% trans 'Add to cart' %}</button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product Details Area End -->
+{% endblock %}

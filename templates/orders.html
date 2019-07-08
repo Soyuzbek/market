@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Orders' %}
+{% endblock %}
+{% block content %}
+    <div class="cart-table-area section-padding-100">
+        <div class="">
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="cart-title mt-50">
+                        <h2>{% trans 'Orders' %}</h2>
+                    </div>
+
+                    <div class="cart-table clearfix">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>{% trans 'id' %}</th>
+                                <th>{% trans 'Name of customer' %}</th>
+                                <th>{% trans 'Total' %}</th>
+                                <th>{% trans 'address' %}</th>
+                                <th>{% trans 'Date of Order' %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in order_list %}
+                                <tr class="cart-item">
+                                    <td class="cart_product_desc">
+                                        <h2><a href="{% url 'order' order.id %}">{{ order.id }}</a></h2>
+                                    </td>
+                                    <td class="cart_product_desc"><span>
+                                        <h5>{{ order.first_name }}</h5>
+                                    </span></td>
+                                    <td class="price">
+                                        <span>{{ order.total }} Som</span>
+                                    </td>
+                                    <td class="price"><span>
+                                        {{order.address }}
+                                    </span></td>
+                                    <td class="date-back">
+                                        <span>{{ order.date }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

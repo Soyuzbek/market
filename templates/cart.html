@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Cart' %}
+{% endblock %}
+{% block content %}
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="cart-title mt-50">
+                        <h2>{% trans 'Shopping cart' %}</h2>
+                    </div>
+
+                    <div class="cart-table clearfix">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>{% trans 'Name' %}</th>
+                                <th>{% trans 'Price' %}</th>
+                                <th>{% trans 'Quantity' %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for cart in cart_list %}
+                                <tr class="cart-item">
+                                    <td class="cart_product_img">
+                                        <a href="#"><img src="{{ cart.photo }}" alt="Product"></a>
+                                    </td>
+                                    <td class="cart_product_desc">
+                                        <h5>{{ cart.name }}</h5>
+                                    </td>
+                                    <td class="price">
+                                        <span>{{ cart.price }}</span>
+                                    </td>
+                                    <td class="qty">
+                                        <div class="qty-btn d-flex">
+                                            <p>Qty</p>
+                                            <div class="quantity">
+                                                <input type="number" class="qty-text" id="qty{{ forloop.counter }}" step="1" min="1"
+                                                       max="300" name="quantity" value="{{ cart.quantity }}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="cart-summary">
+                        <h5>Cart Total</h5>
+                        <ul class="summary-table">
+                            <li><span>subtotal:</span> <span id="subtotal">{{ subtotal }} {% trans 'som' %}</span></li>
+                            <li><span>delivery:</span> <span>Free</span></li>
+                            <li><span>total:</span> <span id="total">{{ total }} {% trans 'som' %}</span></li>
+                        </ul>
+                        <div class="cart-btn mt-100">
+                            <a href="{% url 'checkout' %}" class="btn amado-btn w-100">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+{% endblock %}
