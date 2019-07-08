@@ -84,19 +84,12 @@
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="cart-summary">
-                        <h5>Cart Total</h5>
+                        <h5>{% trans 'Order total' %}</h5>
                         <ul class="summary-table">
                             <li><span>subtotal:</span> <span>{{ order.subtotal }}</span></li>
                             <li><span>delivery:</span> <span>{{ order.delivery }}</span></li>
                             <li><span>total:</span> <span>{{ order.total }}</span></li>
                         </ul>
-
-                        <div class="payment-method">
-                            <p>{% trans 'Cash on delivery' %}</p>
-                            <div class="cart-btn mt-100">
-                                <button form="myform" class="btn amado-btn w-100">{% trans 'Checkout' %}</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

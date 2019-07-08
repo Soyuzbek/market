@@ -70,15 +70,14 @@ class Image(models.Model):
         return f'{self.product} - {self.id}'
 
     def save(self, **kwargs):
-        image_file = StringIO(self.image.read())
-        image = IM.open(image_file)
+        super().save()  # saving image first
 
-        image = image.resize((533, 533), IM.ANTIALIAS)
+        img = IM.open(self.image.path) # Open image using self
 
-        image_file = StringIO()
-        image.save(image_file, 'JPEG', quality=90)
-
-        self.image.file = image_file
+        if img.height > 533 or img.width > 533:
+            new_img = (533, 533)
+            img.thumbnail(new_img)
+            img.save(self.image.path)
 
 
 class Product(models.Model):
