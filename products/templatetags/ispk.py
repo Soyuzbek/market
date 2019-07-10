@@ -8,6 +8,6 @@ def ispk(data):
     try:
         if int(data) != 0:
             return True
-    except ValueError:
+    except (TypeError, ValueError):
         pass
     return False
