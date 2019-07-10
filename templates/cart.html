@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load ispk %}
 {% block title %}
     {% trans 'Cart' %}
 {% endblock %}
@@ -28,7 +29,7 @@
                                 <tr class="cart-item">
                                     <a href="{% url 'product' cart.prodid %}">
                                     <td class="cart_product_img">
-                                        <a href="{% if cart.prodid %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
+                                        <a href="{% if cart.prodid|ispk %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
