@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Not found' %}
+{% endblock %}
+{% block content %}
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <h1>{% trans 'Nothing to show you' %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

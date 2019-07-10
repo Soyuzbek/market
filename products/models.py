@@ -72,7 +72,7 @@ class Image(models.Model):
     def save(self, **kwargs):
         super().save()  # saving image first
 
-        img = IM.open(self.image.path) # Open image using self
+        img = IM.open(self.image.path)  # Open image using self
 
         if img.height > 533 or img.width > 533:
             new_img = (533, 533)
@@ -118,19 +118,21 @@ class Favourite(models.Model):
 
 
 class Order(models.Model):
-    first_name = models.CharField(_('first name'), max_length=254, null=True)
-    last_name = models.CharField(_('last name'), max_length=254, null=True)
-    email = models.EmailField(verbose_name=_('email'))
-    address = models.CharField(_('address'), max_length=254, null=True)
+    first_name = models.CharField(_('first name'), max_length=254, null=True, help_text=_('Please enter your name'))
+    last_name = models.CharField(_('last name'), max_length=254, null=True, help_text=_('Last name can\'t be blank'))
+    email = models.EmailField(verbose_name=_('email'), help_text=_('Please enter a valide email'))
+    address = models.CharField(_('address'), max_length=254, null=True,
+                               help_text=_('We can\'t take order without address'))
     phone_regex_kg = RegexValidator(regex=r'^\+?996?\d{9,15}$',
-                                    message=_("Phone number must be entered in the format:"
-                                              " '+996999999'. Up to 15 digits allowed"))
-    phone = models.CharField(verbose_name=_('phone'), max_length=15, validators=[phone_regex_kg], null=True, blank=True)
-    zip_code = models.CharField(_('zip code'), max_length=10)
+                                    message=_("+996(123)456789"))
+    phone_regex_short_kg = RegexValidator(regex=r'^\0?\d{8,12}$', message='0(123)456789')
+    phone = models.CharField(verbose_name=_('phone'), max_length=15, validators=[phone_regex_kg],
+                             help_text=_('Enter your phone number'), null=True)
+    zip_code = models.CharField(_('zip code'), max_length=10, null=True, blank=True)
     subtotal = models.CharField(_('subtotal'), max_length=30)
     total = models.CharField(_('total'), max_length=30)
     delivery = models.CharField(_('delivery'), max_length=30, default='0')
-    comment = models.TextField(_('comment'))
+    comment = models.TextField(_('comment'), null=True, blank=True)
     date = models.DateTimeField(_('date'), auto_now_add=True, null=True)
 
     class Meta:
@@ -139,8 +141,12 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
+    prodid = models.CharField(_('id of product'), max_length=254, null=True)
     name = models.CharField(_('name'), max_length=255)
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, null=True)
     quantity = models.PositiveSmallIntegerField(_('quantity'), )
     photo = models.ImageField(_('photo'))
     order = models.ForeignKey(Order, models.CASCADE, 'product_set')
+
+    class Meta:
+        ordering = ['name']

@@ -47,3 +47,9 @@
 .back-stars .fa {
     font: normal normal normal 14px/3 FontAwesome;
 }
+.alert {
+    position: fixed;
+    right: 50px;
+    top: 50px;
+    z-index: 30;
+}

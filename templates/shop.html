@@ -42,13 +42,13 @@
             <!-- ##### Single Widget ##### -->
             <div class="widget price mb-50">
                 <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Price</h6>
+                <h6 class="widget-title mb-30">{% trans 'Price' %}</h6>
 
                 <div class="widget-desc">
                     <div class="slider-range">
-                        <div data-min="10" data-max="100000" data-unit="$"
+                        <div data-min="100" data-max="100000" data-unit="{% trans 'som' %}"
                              class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                             data-value-min="10" data-value-max="100000" data-label-result="">
+                             data-value-min="100" data-value-max="100000" data-label-result="">
                             <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
                                   style="left: 0%;"></span>
@@ -57,14 +57,14 @@
                             <div class="ui-slider-range ui-corner-all ui-widget-header"
                                  style="left: 0%; width: 100%;"></div>
                         </div>
-                        <div class="range-price"> $10 - $100000</div>
-                        <input type="hidden" name="min_val" id="min_val" value="10">
+                        <div class="range-price"> 100 - 100000 {% trans 'som' %}</div>
+                        <input type="hidden" name="min_val" id="min_val" value="100">
                         <input type="hidden" name="max_val" id="max_val" value="100000">
                     </div>
                 </div>
             </div>
             <div class="widget">
-                <button class="amado-btn">update</button>
+                <button class="amado-btn">{% trans 'update' %}</button>
             </div>
         </form>
     </div>
@@ -75,14 +75,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product-topbar d-xl-flex align-items-end justify-content-between">
-                        <!-- Total Products -->
-                        {#                        <div class="total-products">#}
-                        {#                            <p>Showing 1-8 0f 25</p>#}
-                        {#                            <div class="view d-flex">#}
-                        {#                                <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>#}
-                        {#                                <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
                         <!-- Sorting -->
                         <div class="product-sorting d-flex">
                             <div class="sort-by-date d-flex align-items-center mr-15">
@@ -93,17 +85,16 @@
                                     <option value="rating">{% trans 'Popular' %}</option>
                                 </select>
                             </div>
-                            {#                            <div class="view-product d-flex align-items-center">#}
-                            {#                                <p>View</p>#}
-                            {#                                    <select name="select" id="viewProduct">#}
-                            {#                                        <option value="value">12</option>#}
-                            {#                                        <option value="value">24</option>#}
-                            {#                                        <option value="value">48</option>#}
-                            {#                                        <option value="value">96</option>#}
-                            {#                                    </select>#}
-                            {#                            </div>#}
                         </div>
                     </div>
+                    {% if messages %}
+                        <ul class="messagelist">
+                            {% for message in messages %}
+                                <li{% if message.tags %}
+                                    class="{{ message.extra_tags }} alert-dismissible"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
 
@@ -122,42 +113,46 @@
                             </div>
 
                             <!-- Product Description -->
+
                             <div class="product-description d-flex align-items-center justify-content-between">
                                 <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">{% blocktrans with price=product.price %} $
-                                        {{ price }} {% endblocktrans %}</p>
-                                    <a href="{% url 'product' product.pk %}">
+                                <a href="{% url 'product' product.id %}">
+                                    <div class="product-meta-data">
+                                        <div class="line"></div>
+                                        <p class="product-price">
+                                            {{ product.price }} {% trans 'som' %}</p>
                                         <h6>{{ product.name }}</h6>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                                 <!-- Ratings & Cart -->
                                 <div class="ratings-cart text-right">
-                                    <div class="back-stars">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    <a href="{% url 'product' product.id %}">
 
-                                        <div class="front-stars" style="width: {{ product.rating }}%">
+                                        <div class="back-stars">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
+
+                                            <div class="front-stars" style="width: {{ product.rating }}%">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                     <div class="cart">
-                                        <form action="{% url 'cart' %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="pk" value="{{ product.pk }}">
-                                            <input type="hidden" name="quantity" value="1">
-                                            <button href="{% url 'cart' %}" data-toggle="tooltip" data-placement="left"
-                                                    title="{% trans 'Add to cart' %}" style="border: none; background-color: inherit;"><img
-                                                    src="{% static 'img/core-img/cart.png' %}" alt=""></button>
-                                        </form>
+                                        <button href="#"
+                                                data-toggle="tooltip"
+                                                data-placement="left"
+                                                title="{% trans 'Add to cart' %}"
+                                                style="border: none; background-color: inherit;"><img
+                                                src="{% static 'img/core-img/cart.png' %}" alt=""
+                                                onclick="cartAdd('{{ product.pk }}', '{% url 'cart' %}', '{{ csrf_token }}', 1)">
+                                        </button>
                                     </div>
                                 </div>
 
@@ -166,19 +161,6 @@
                     </div>
                 {% endfor %}
             </div>
-            {#            <div class="row">#}
-            {#                <div class="col-12">#}
-            {#                    <!-- Pagination -->#}
-            {#                    <nav aria-label="navigation">#}
-            {#                        <ul class="pagination justify-content-end mt-50">#}
-            {#                            <li class="page-item active"><a class="page-link" href="#">01.</a></li>#}
-            {#                            <li class="page-item"><a class="page-link" href="#">02.</a></li>#}
-            {#                            <li class="page-item"><a class="page-link" href="#">03.</a></li>#}
-            {#                            <li class="page-item"><a class="page-link" href="#">04.</a></li>#}
-            {#                        </ul>#}
-            {#                    </nav>#}
-            {#                </div>#}
-            {#            </div>#}
         </div>
     </div>
 {% endblock %}

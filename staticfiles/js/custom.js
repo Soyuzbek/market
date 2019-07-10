@@ -1,7 +1,7 @@
-$(document).ready(
+$(document).ready(function () {
     $('.cart-item').change(function () {
         let parent = $(this);
-        let name = $(this).find('h5').text();
+        let pk = $(this).find('.prodid').text();
         // size = $(this).find('i').val();
         // color = $(this).find('input[name=color]').val();
         let val = $(this).find('input[name=quantity]').val();
@@ -11,16 +11,96 @@ $(document).ready(
             method: 'PUT',
             dataType: 'json',
             data: {
-                'name': name,
+                'pk': pk,
                 // 'size': size,
                 // 'color': color,
-                'quantity': val,
+                'qty': val,
             },
             success: function (data) {
-                $('#subtotal').html(data['data']);
-                $('#total').html(data['data'])
+                $('#subtotal').html(data['data'] + ' som');
+                $('#total').html(data['data'] + ' som')
             }
         })
-        // })
+    });
+    setTimeout(function () {
+        $('.messagelist').hide('slow');
+    }, 2500);
+    // $('.messagelist').delay(14500000000).hide();
+});
+$('#cartDelete').click(function () {
+    let path = window.location.href;
+    let token = $('input[name="csrfmiddlewaretoken"]').val();
+    $.ajax({
+        url: path,
+        method: 'DELETE',
+        dataType: 'json',
+        data: {
+            'csrfmiddlewaretoken': token,
+        },
+        success: function (data) {
+            $('#cartList').html('');
+            parent = $('body');
+            if (data['status'])
+                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+            else
+                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+            setTimeout(function () {
+                $('#myalert').hide('slow', function () {
+                    $('#myalert').remove();
+                });
+            }, 2500);
+        }
+    });
+});
+
+function cartAdd(pk, url, token, qty) {
+    if(isNaN(qty))
+        qty = '1';
+    $.ajax({
+        url: url,
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            'csrfmiddlewaretoken': token,
+            'pk': pk,
+            'qty': qty
+        },
+        success: function (data) {
+            parent = $('body');
+            if (data['status'])
+                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+            else
+                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+            setTimeout(function () {
+                $('#myalert').hide('slow', function () {
+                    $('#myalert').remove();
+                });
+            }, 2500);
+        }
     })
-);
+}
+
+function favAdd(url, pk, token) {
+    $.ajax({
+        url: url,
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            'csrfmiddlewaretoken': token,
+            'pk': pk
+        },
+        success: function (data) {
+            parent = $('body');
+            if (data['status'])
+                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+            else
+                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+            setTimeout(function () {
+                $('#myalert').hide('slow', function () {
+                    $('#myalert').remove();
+                });
+            }, 2500);
+        }
+    })
+
+}

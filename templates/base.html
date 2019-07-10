@@ -23,6 +23,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{% static 'css/core-style.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+     <script src="//code.jivosite.com/widget.js" jv-id="gkkwxfq6cl" async></script>
 
 </head>
 
@@ -91,13 +92,13 @@
         </div>
         <!-- Cart Menu -->
         <div class="cart-fav-search mb-100">
-            <a href="cart.html" class="cart-nav"><img src="img/core-img/cart.png" alt="">{% trans 'Cart' %}<span>(
+            <a href="{% url 'cart' %}" class="cart-nav"><img src="img/core-img/cart.png" alt="">{% trans 'Cart' %}<span>(
                 {% if request.session.cart %}
                     {{ request.session.cart|length }}
                 {% else %}
                     0
                 {% endif %})</span></a>
-            <a href="{% url 'only_fav' %}" class="fav-nav"><img src="img/core-img/favorites.png"
+            <a href="{% url 'fav' %}" class="fav-nav"><img src="img/core-img/favorites.png"
                                                                 alt="">{% trans 'Favourite' %}</a>
             <a href="#" class="search-nav"><img src="img/core-img/search.png" alt="">Search</a>
         </div>
@@ -211,9 +212,13 @@
 <script src="{% static 'js/plugins.js' %}"></script>
 <!-- Active js -->
 <script src="{% static 'js/active.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;">
     <i class="fa fa-angle-up"
        aria-hidden="true"></i></a>
+{% block js %}
+
+{% endblock %}
 </body>
 
 </html>

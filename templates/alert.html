@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="row">
+    {% if success %}
+            <div class="alert alert-success">
+            {{ success }}
+            </div>
+    {% endif %}
+    {% if danger %}
+        <div class="alert alert-danger">
+        {{ danger }}
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

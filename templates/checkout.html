@@ -9,55 +9,69 @@
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <div class="checkout_details_area mt-50 clearfix">
-
+                        {% if messages %}
+                            <ul class="messagelist">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.extra_tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <div class="cart-title">
                             <h2>{% trans 'Checkout' %}</h2>
                         </div>
 
-                        <form action="{% url 'checkout' %}" method="post" id="myform">
+                        <form action="{% url 'checkout' %}" method="post" id="myform" class="needs-validation"
+                              novalidate>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     {{ form.first_name }}
-                                    <div class="invalid-feedback">
-                                        {{ form.first_name.errors|striptags }}
-                                    </div>
+                                    <small class="invalid-feedback">
+                                        {{ form.first_name.help_text }}
+                                    </small>
+                                    <small class="valid-feedback">
+                                        {{ form.first_name.help_text }}
+                                    </small>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     {{ form.last_name }}
-                                    <div class="invalide-feedback">
-                                        {{ form.last_name.errors|striptags }}
-                                    </div>
+                                    <small class="invalid-feedback">
+                                        {{ form.last_name.help_text }}
+                                    </small>
                                 </div>
                                 <div class="col-12 mb-3">
                                     {{ form.email }}
-                                    <div class="invalid-feedback">
+                                    <small class="invalid-feedback">
+                                        {{ form.email.help_text }}
+                                    </small>
+                                    {% if form.email.errors %}
+                                        <small class="alert alert-danger">
                                         {{ form.email.errors|striptags }}
-                                    </div>
+                                        </small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-12 mb-3">
                                     {{ form.address }}
-                                    <div class="invalid-feedback">
-                                        {{ form.address.errors|striptags }}
-                                    </div>
+                                    <small class="invalid-feedback">
+                                        {{ form.address.help_text }}
+                                    </small>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     {{ form.zip_code }}
-                                    <div class="invalid-feedback">
-                                        {{ form.zip_code.errors|striptags }}
-                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     {{ form.phone }}
-                                    <div class="invalide-feedback">
+                                    <small class="invalid-feedback">
+                                        {{ form.phone.help_text }}
+                                    </small>
+                                    {% if form.phone.errors %}
+                                        <small class="alert alert-danger col-mb-3">
                                         {{ form.phone.errors|striptags }}
-                                    </div>
+                                        </small>
+                                    {% endif %}
                                 </div>
                                 <div class="col-12 mb-3">
                                     {{ form.comment }}
-                                    <div class="invalid-feedback">
-                                        {{ form.comment.errors|striptags }}
-                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -75,11 +89,33 @@
                         <div class="payment-method">
                             <p>{% trans 'Cash on delivery' %}</p>
                             <div class="cart-btn mt-100">
-                                <button form="myform" class="btn amado-btn w-100">{% trans 'Checkout' %}</button>
+                                <button type="submit" form="myform"
+                                        class="btn amado-btn w-100">{% trans 'Checkout' %}</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 {% endblock %}

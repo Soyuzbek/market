@@ -111,8 +111,7 @@
             max: max,
             values: [value_min, value_max],
             slide: function (event, ui) {
-                let result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
-                console.log(t);
+                let result = label_result + " " + ui.values[0] + ' - ' + ui.values[1] + " " + unit;
                 t.closest('.slider-range').find('.range-price').html(result);
                 min_v.val(ui.values[0]);
                 max_v.val(ui.values[1]);

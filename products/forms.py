@@ -8,7 +8,7 @@ class OrderForm(ModelForm):
         model = Order
         exclude = ['subtotal', 'delivery', 'total']
         widgets = {
-            'first_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+            'first_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name', }),
             'last_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
             'email': TextInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
             'address': TextInput(attrs={'class': 'form-control', 'placeholder': 'address'}),

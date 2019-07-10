@@ -2,13 +2,14 @@ from decimal import Decimal
 from unicodedata import decimal
 from urllib.parse import unquote
 
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Min
 from django.http import HttpResponseRedirect, QueryDict, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, ListView
 
@@ -69,53 +70,62 @@ class CartView(View):
     def post(self, request):
         cart_list = request.session.get('cart', [])
         product = Product.objects.get(pk=request.POST.get('pk'))
-        for el in cart_list:
-            if el['name'] == product.name:
-                cart_list.remove(el)
-        if product.name in cart_list: cart_list.remove(product.name)
-        if product.status == gettext_lazy('In stock'):
-            cart_list.append({'id': product.id,
+        cart_list = [x for x in cart_list if x['prodid'] !=product.id]
+        if product.status == _('In stock'):
+            cart_list.append({'prodid': product.id,
                               'name': product.name,
                               'price': str(product.price),
-                              'quantity': request.POST.get('quantity'),
+                              'quantity': request.POST.get('qty', '1'),
                               'photo': str(product.image_set.first().image.url),
                               # 'size': request.POST.get('size'),
                               # 'color': request.POST.get('color'),
                               })
             request.session['cart'] = cart_list
-        request.session['subtotal'] = str(
-            sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart')]))
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            request.session['subtotal'] = str(
+                sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart')]))
+            return JsonResponse({'data': _('The product successfully added to your cart'), 'status': True})
+        return JsonResponse({'data': _('Selected product is not available'), 'status': False})
 
     def put(self, request):
         request.PUT = QueryDict(request.body)
         cart_list = request.session.get('cart')
         for el in cart_list:
-            if el['name'] == request.PUT.get('name'):
-                el['quantity'] = request.PUT.get('quantity')
+            if el['prodid'] == int(request.PUT.get('pk')):
+                el['quantity'] = request.PUT.get('qty')
+                print(el['quantity'])
         request.session['cart'] = cart_list
         request.session['subtotal'] = str(
             sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart')]))
         return JsonResponse({'data': request.session['subtotal']})
+
+    def delete(self, request):
+        if request.session['cart']:
+            request.session['cart'] = []
+            return JsonResponse({'data': _('Your cart has been cleared cleared successfully'), 'status': True})
+        return JsonResponse({'data': _('Your cart is already clear'), 'status': False})
 
 
 class FavView(View):
     model = Product
     template_name = 'shop.html'
 
-    def get(self, request, pk=None):
+    def get(self, request):
         pks = request.session.get('favourites', [])
-        if pk is None:
-            product_set = self.model.objects.filter(pk__in=pks)
-            return render(request, self.template_name, locals())
-        else:
-            if pk not in pks:
-                pks.append(pk)
-                product = Product.objects.get(pk=pk)
-                product.rating +=0.1
+        product_set = self.model.objects.filter(pk__in=pks)
+        return render(request, self.template_name, locals())
+
+    def post(self, request):
+        pk = str(request.POST.get('pk'))
+        pks = request.session.get('favourites', [])
+        if pk not in pks:
+            pks.append(pk)
+            product = Product.objects.get(pk=pk)
+            if product.rating < Decimal(5.00):
+                product.rating += Decimal('0.01')
                 product.save()
-                request.session['favourites'] = pks
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            request.session['favourites'] = pks
+        print(pks)
+        return JsonResponse({'data': _('This product selected as your favourite'), 'status': True})
 
 
 class SearchView(View):
@@ -140,18 +150,19 @@ class OrderView(View):
         form = self.form_class(request.POST)
         total = request.session.get('subtotal', 0)
         checkout = 'active'
-        print(form.is_valid())
-        print(form.errors)
-        if form.is_valid():
+        if form.is_valid() and total !='0':
             order = form.save(commit=False)
             order.subtotal = request.session.get('subtotal', 0)
             order.total = order.subtotal
             order.save()
             product_set_json = request.session.get('cart', [])
-            for product_json in product_set_json:
-                OrderProduct.objects.create(**product_json, order=order)
-            return render(request, 'index.html', { 'message': gettext_lazy('Your order conformed successfully')})
-        return render(request, self.template_name, locals())
+            if len(product_set_json) != 0:
+                for product_json in product_set_json:
+                    OrderProduct.objects.create(**product_json, order=order)
+                return render(request, 'alert.html', {'success': _('Your order conformed successfully')})
+            order.delete()
+            return JsonResponse({'data':  _('Order can\'t be empty')})
+        return JsonResponse({'data':  _('Please correct following fields')})
 
 
 class OrderList(ListView):

@@ -18,28 +18,32 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>{% trans 'Name' %}</th>
+                                <th>{% trans 'Name - ID' %}</th>
                                 <th>{% trans 'Price' %}</th>
                                 <th>{% trans 'Quantity' %}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="cartList">
                             {% for cart in cart_list %}
                                 <tr class="cart-item">
+                                    <a href="{% url 'product' cart.prodid %}">
                                     <td class="cart_product_img">
-                                        <a href="#"><img src="{{ cart.photo }}" alt="Product"></a>
+                                        <a href="{% url 'product' cart.prodid %}"><img src="{{ cart.photo }}" alt="Product"></a>
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
+                                        <p class="prodid">{{ cart.prodid }}</p>
                                     </td>
                                     <td class="price">
                                         <span>{{ cart.price }}</span>
                                     </td>
+                                        </a>
                                     <td class="qty">
                                         <div class="qty-btn d-flex">
                                             <p>Qty</p>
                                             <div class="quantity">
-                                                <input type="number" class="qty-text" id="qty{{ forloop.counter }}" step="1" min="1"
+                                                <input type="number" class="qty-text" id="qty{{ forloop.counter }}"
+                                                       step="1" min="1"
                                                        max="300" name="quantity" value="{{ cart.quantity }}">
                                             </div>
                                         </div>
@@ -48,6 +52,12 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                        <div class="cart-btn mt-100">
+                            {% csrf_token %}
+                            <button id="cartDelete" class="btn amado-btn w-100">
+                            {% trans 'delete' %}
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -59,13 +69,11 @@
                             <li><span>total:</span> <span id="total">{{ total }} {% trans 'som' %}</span></li>
                         </ul>
                         <div class="cart-btn mt-100">
-                            <a href="{% url 'checkout' %}" class="btn amado-btn w-100">Checkout</a>
+                            <a href="{% url 'checkout' %}" class="btn amado-btn w-100">{% trans 'Checkout' %}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
 {% endblock %}

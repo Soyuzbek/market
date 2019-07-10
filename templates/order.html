@@ -65,7 +65,7 @@
                             {% for cart in order.product_set.all %}
                                 <tr class="cart-item">
                                     <td class="cart_product_img">
-                                        <a href="#"><img src="{{ cart.photo }}" alt="Product"></a>
+                                        <a href="{% if cart.prodid %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
