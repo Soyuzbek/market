@@ -28,7 +28,7 @@
                                 <tr class="cart-item">
                                     <a href="{% url 'product' cart.prodid %}">
                                     <td class="cart_product_img">
-                                        <a href="{% url 'product' cart.prodid %}"><img src="{{ cart.photo }}" alt="Product"></a>
+                                        <a href="{% if cart.prodid %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
