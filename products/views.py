@@ -12,9 +12,12 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, ListView
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
 
-from products.forms import OrderForm
-from products.models import Category, Product, Brand, Color, Order, OrderProduct
+from products.forms import OrderForm, ReviewForm
+from products.models import Category, Product, Brand, Color, Order, OrderProduct, Review
+from products.serializer import ReviewSerializer
 
 
 class IndexView(View):
@@ -56,7 +59,13 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'product-details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReviewForm
+        return context
 
+
+# Cart
 class CartView(View):
     template_name = 'cart.html'
 
@@ -105,6 +114,7 @@ class CartView(View):
         return JsonResponse({'data': _('Your cart is already clear'), 'status': False})
 
 
+# Favourites
 class FavView(View):
     model = Product
     template_name = 'shop.html'
@@ -119,12 +129,7 @@ class FavView(View):
         pks = request.session.get('favourites', [])
         if pk not in pks:
             pks.append(pk)
-            product = Product.objects.get(pk=pk)
-            if product.rating < Decimal(5.00):
-                product.rating += Decimal('0.01')
-                product.save()
             request.session['favourites'] = pks
-        print(pks)
         return JsonResponse({'data': _('This product selected as your favourite'), 'status': True})
 
 
@@ -136,6 +141,7 @@ class SearchView(View):
         return render(request, 'shop.html', locals())
 
 
+# Orders and Checkout
 class OrderView(View):
     form_class = OrderForm
     template_name = 'checkout.html'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, Category, Brand, Image, Size, Color, Favourite, Order, OrderProduct
+from products.models import Product, Category, Brand, Image, Size, Color, Favourite, Order, OrderProduct, Review
 
 
 @admin.register(Product)
@@ -55,4 +55,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'email', 'date', 'address')
     list_editable = ('address', )
     inlines = [ProdOrderInline]
+    pass
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
     pass

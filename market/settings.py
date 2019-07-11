@@ -26,7 +26,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-3i45sz*2&nh55@b9bvr#i$2iur05f-suyp4st*tlfpw2p9(d+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'rosetta',
     'users',
     'products',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,14 +85,14 @@ WSGI_APPLICATION = 'market.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'db',
-        # 'USER': 'soyuzbek',
-        # 'PASSWORD': 'market',
-        # 'HOST': 'localhost',
-        # 'PORT': '',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db',
+        'USER': 'soyuzbek',
+        'PASSWORD': 'market',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -194,3 +196,12 @@ CONFIG_DEFAULTS = {
     'SQL_WARNING_THRESHOLD': 100,   # milliseconds
 }
 INTERNAL_IPS = '127.0.0.1'
+
+# Django Rest Framework settings
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

@@ -54,7 +54,7 @@ $('#cartDelete').click(function () {
 });
 
 function cartAdd(pk, url, token, qty) {
-    if(isNaN(qty))
+    if (isNaN(qty))
         qty = '1';
     $.ajax({
         url: url,
@@ -104,3 +104,62 @@ function favAdd(url, pk, token) {
     })
 
 }
+
+jQuery(document).ready(function ($) {
+
+    $(".btnrating").on('click', (function (e) {
+        let previous_value = $('#id_rating').val();
+
+        let selected_value = $(this).attr("data-attr");
+        $("#id_rating").val(selected_value);
+
+        $(".selected-rating").empty();
+        $(".selected-rating").html(selected_value);
+
+        for (i = 1; i <= selected_value; ++i) {
+            $("#rating-star-" + i).toggleClass('btn-warning');
+            $("#rating-star-" + i).toggleClass('btn-default');
+        }
+
+        for (ix = 1; ix <= previous_value; ++ix) {
+            $("#rating-star-" + ix).toggleClass('btn-warning');
+            $("#rating-star-" + ix).toggleClass('btn-default');
+        }
+
+    }));
+
+
+});
+
+$("#myform").submit(function (event) {
+
+    /* stop form from submitting normally */
+    event.preventDefault();
+
+    /* get the action attribute from the <form action=""> element */
+    var $form = $(this),
+        url = $form.attr('action');
+
+    /* Send the data using post with element id name and name2*/
+    var posting = $.post(url, {
+        name: $('#id_name').val(),
+        email: $('#id_email').val(),
+        rating: $('#id_rating').val(),
+        comment: $('#id_comment').val(),
+        product: $('#id_product').val()
+    });
+
+    /* Alerts the results */
+    posting.done(function (data) {
+        parent = $('body');
+        if (data['status'])
+            parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+        else
+            parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+        setTimeout(function () {
+            $('#myalert').hide('slow', function () {
+                $('#myalert').remove();
+            });
+        }, 2500);
+    });
+});

@@ -1,6 +1,8 @@
 from PIL import Image as IM
 from django.core.validators import RegexValidator, MinLengthValidator
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
@@ -17,10 +19,10 @@ class Category(models.Model):
 
 
 class Review(models.Model):
+    product = models.ForeignKey('Product', models.CASCADE, 'review_set', verbose_name=_('product'), null=True)
     name = models.CharField(_('name'), max_length=255, help_text=_('Please enter your name'))
     email = models.EmailField(verbose_name=_('Email'), help_text=_('The email field can\'t be empty'))
-    rating = models.DecimalField(_('Your rating'), max_digits=4, decimal_places=2, default=0,
-                                 help_text=_('Please rate us'))
+    rating = models.DecimalField(_('Your rating'), max_digits=4, decimal_places=2, help_text=_('Please rate us'))
     comment = models.TextField(verbose_name=_('comment'), validators=[MinLengthValidator(15)], null=True, blank=True)
 
     class Meta:
@@ -30,7 +32,7 @@ class Review(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(_('name'), max_length=20)
-    category_set = models.ManyToManyField(Category, 'brand_set', verbose_name=_('category set'), null=True)
+    category_set = models.ManyToManyField(Category, 'brand_set', verbose_name=_('category set'))
     image = models.ImageField(_('image'), upload_to='brands/')
     about = models.TextField(_('about'), blank=True)
 
@@ -98,8 +100,8 @@ class Product(models.Model):
     description = models.TextField(_('description'), null=True)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name=_('category'), null=True)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, verbose_name=_('brand'), null=True)
-    color = models.ManyToManyField(Color, _('color'), null=True)
-    size = models.ManyToManyField(Size, verbose_name=_('size'), null=True)
+    color = models.ManyToManyField(Color, _('color'))
+    size = models.ManyToManyField(Size, verbose_name=_('size'))
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, null=True)
     discount = models.PositiveSmallIntegerField(_('discount'), default=0)
     rating = models.DecimalField(_('rating'), max_digits=4, decimal_places=2, default=0)
@@ -159,3 +161,21 @@ class OrderProduct(models.Model):
 
     class Meta:
         ordering = ['name']
+
+
+@receiver(pre_save, sender=Review)
+def presave_review(sender, instance, created=None, **kwargs):
+    if not created:
+        if instance.rating > 5:
+            instance.rating = 5
+        if instance.rating < 0:
+            instance.rating = 1
+
+
+@receiver(post_save, sender=Review)
+def postsave_review(sender, instance, created=None, **kwargs):
+    if created:
+        instance.product.rating = sum(
+            [review.rating for review in sender.objects.filter(product=instance.product)]) / len(
+            sender.objects.filter(product=instance.product))
+        instance.product.save()

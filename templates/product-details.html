@@ -7,7 +7,6 @@
     <!-- Product Details Area Start -->
     <div class="single-product-area section-padding-100 clearfix">
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
@@ -73,7 +72,8 @@
                             </a>
                             <!-- Ratings & Review -->
                             <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
-                                <div class="back-stars">
+                                <div class="back-stars btn" data-toggle="modal" data-target="#mymodal"
+                                     title="{% trans 'Leave your review' %}">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -89,7 +89,8 @@
                                     </div>
                                 </div>
                                 <div class="review">
-                                    <button onclick="favAdd({%url 'fav' %}, {{ product.pk }}, '{{ csrf_token }}')" class="btn btn-sm">{% trans 'Add to Favourite' %}</button>
+                                    <button onclick="favAdd({% url 'fav' %}, {{ product.pk }}, '{{ csrf_token }}')"
+                                            class="btn btn-sm">{% trans 'Add to Favourite' %}</button>
                                 </div>
 
 
@@ -118,7 +119,8 @@
                                             class="fa fa-caret-up" aria-hidden="true"></i></span>
                                 </div>
                             </div>
-                            <button class="btn amado-btn" onclick="let q = $('#qty').val(); cartAdd({{ product.pk }}, {% url 'cart' %}, '{{ csrf_token }}', q)">{% trans 'Add to cart' %}</button>
+                            <button class="btn amado-btn"
+                                    onclick="let q = $('#qty').val(); cartAdd({{ product.pk }}, {% url 'cart' %}, '{{ csrf_token }}', q)">{% trans 'Add to cart' %}</button>
                         </div>
 
 
@@ -127,5 +129,96 @@
             </div>
         </div>
     </div>
+
     <!-- Product Details Area End -->
+{% endblock %}
+{% block js %}
+
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mymodalLabel">{% trans 'Leave a review' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'router:rev-list' %}" method="post" id="myform" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.name }}
+                            <small class="invalid-feedback">{{ form.name.help_text }}</small>
+                        </div>
+                        <div class="form-group">
+                            {{ form.email }}
+                            <small class="invalid-feedback">{{ form.email.help_text }}</small>
+                        </div>
+                        <label class="control-label" for="rating">
+                            <span class="field-label-header">{% trans 'Are you happy to use our product' %}?*</span><br>
+                            <span class="field-label-info"></span> </label>
+                        {{ form.rating }}
+                        <h2 class="bold rating-header" style="">
+                            <span class="selected-rating">0</span>
+                            <small> / 5</small>
+                            <small class="invalid-feedback">aslkdfjslfjk</small>
+                        </h2>
+                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="1" id="rating-star-1">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="2" id="rating-star-2">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="3" id="rating-star-3">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="4" id="rating-star-4">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="5" id="rating-star-5">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </button>
+                        <br>
+                        <h2>
+                            <small id="invalid" class="invalid-feedback">{{ form.rating.help_text }}</small>
+                        </h2>
+                        <div class="form-group">
+                            <br>{{ form.comment }}
+                            <small class="invalid-feedback">{{ form.comment.help_text }}</small>
+                        </div>
+                        <input type="hidden" name="product" id="id_product" value="{{ product.id }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button form="myform" type="submit" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            {#$("form").data("validator").settings.ignore = "";#}
+        });
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        $('#invalid').removeClass('d-none');
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 {% endblock %}

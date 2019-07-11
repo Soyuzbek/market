@@ -18,13 +18,38 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets, routers
+from rest_framework.permissions import AllowAny
 
-from products.views import CartView
-from users import views as user_views
 from products import views as pro_views
+from products.models import Review, Product
+from products.serializer import ReviewSerializer, ProductSerializer
+from products.views import CartView
 from users.views import LanguageView
 
+
+# ViewSets define the view behavior.
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (AllowAny, )
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register('rev', ReviewViewSet, base_name='rev')
+router.register('prod', ProductViewSet, base_name='prod')
+# router.register(r'clients', pro_views.ReviewView, base_name='create')
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+
 urlpatterns = [
+    path('reviews/', include((router.urls, router), namespace='router')),
     path('admin/', admin.site.urls),
     path('lang/<str:lang>', LanguageView.as_view(), name='lang'),
     path('translate/', include('rosetta.urls')),
@@ -38,12 +63,14 @@ urlpatterns = [
     path('checkout/', pro_views.OrderView.as_view(), name='checkout'),
     path('orders/', pro_views.OrderList.as_view(), name='orders'),
     path('order/<int:pk>/', pro_views.OrderDetail.as_view(), name='order'),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
 
