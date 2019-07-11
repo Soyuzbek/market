@@ -27,7 +27,7 @@ SECRET_KEY = '-3i45sz*2&nh55@b9bvr#i$2iur05f-suyp4st*tlfpw2p9(d+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'market.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db',
-        'USER': 'soyuzbek',
-        'PASSWORD': 'market',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'db',
+        # 'USER': 'soyuzbek',
+        # 'PASSWORD': 'market',
+        # 'HOST': 'localhost',
+        # 'PORT': '',
     }
 }
 
