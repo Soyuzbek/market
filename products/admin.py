@@ -3,11 +3,17 @@ from django.contrib import admin
 from products.models import Product, Category, Brand, Image, Size, Color, Favourite, Order, OrderProduct, Review
 
 
+class ImageInline(admin.StackedInline):
+    model = Image
+    can_delete = True
+    fk_name = 'product'
+
+
 @admin.register(Product)
-class ProdcutAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'discount', 'get_colors', 'status')
     list_editable = ('price', 'discount', 'status')
-
+    inlines = (ImageInline, )
     @staticmethod
     def get_colors(obj):
         return "\n\t".join([c.name for c in obj.color.all()])
@@ -20,11 +26,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
     pass
 
 
