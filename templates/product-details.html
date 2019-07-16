@@ -72,7 +72,7 @@
                             </a>
                             <!-- Ratings & Review -->
                             <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
-                                <div class="back-stars btn" data-toggle="modal" data-target="#mymodal"
+                                <div class="back-stars open-modal"
                                      title="{% trans 'Leave your review' %}">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -80,7 +80,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
 
-                                    <div class="front-stars" style="width: {{ product.rating }}%">
+                                    <div class="front-stars" style="width: calc({{ product.rating }}*20%)">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -88,6 +88,7 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
                                 </div>
+
                                 <div class="review">
                                     <button onclick="favAdd({% url 'fav' %}, {{ product.pk }}, '{{ csrf_token }}')"
                                             class="btn btn-sm">{% trans 'Add to Favourite' %}</button>
@@ -133,19 +134,23 @@
     <!-- Product Details Area End -->
 {% endblock %}
 {% block js %}
-
-    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel"
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog"
+         aria-labelledby="mymodalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mymodalLabel">{% trans 'Leave a review' %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title"
+                        id="mymodalLabel">{% trans 'Leave a review' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'router:rev-list' %}" method="post" id="myform" class="needs-validation" novalidate>
+                    <form action="{% url 'review-list' %}" method="post" id="review-form"
+                          class="needs-validation"
+                          novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             {{ form.name }}
@@ -157,49 +162,58 @@
                         </div>
                         <label class="control-label" for="rating">
                             <span class="field-label-header">{% trans 'Are you happy to use our product' %}?*</span><br>
-                            <span class="field-label-info"></span> </label>
-                        {{ form.rating }}
+                            <span class="field-label-info"></span>
+                            {{ form.rating }}
+                        </label>
                         <h2 class="bold rating-header" style="">
-                            <span class="selected-rating">0</span>
-                            <small> / 5</small>
-                            <small class="invalid-feedback">aslkdfjslfjk</small>
                         </h2>
-                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="1" id="rating-star-1">
+                        <button type="button" class="btnrating btn btn-default btn-lg"
+                                data-attr="1" id="rating-star-1">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="2" id="rating-star-2">
+                        <button type="button" class="btnrating btn btn-default btn-lg"
+                                data-attr="2" id="rating-star-2">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="3" id="rating-star-3">
+                        <button type="button" class="btnrating btn btn-default btn-lg"
+                                data-attr="3" id="rating-star-3">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="4" id="rating-star-4">
+                        <button type="button" class="btnrating btn btn-default btn-lg"
+                                data-attr="4" id="rating-star-4">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg" data-attr="5" id="rating-star-5">
+                        <button type="button" class="btnrating btn btn-default btn-lg"
+                                data-attr="5" id="rating-star-5">
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
                         <br>
                         <h2>
-                            <small id="invalid" class="invalid-feedback">{{ form.rating.help_text }}</small>
+                            <small id="invalid"
+                                   class="invalid-feedback">{{ form.rating.help_text }}</small>
                         </h2>
                         <div class="form-group">
                             <br>{{ form.comment }}
                             <small class="invalid-feedback">{{ form.comment.help_text }}</small>
                         </div>
-                        <input type="hidden" name="product" id="id_product" value="{{ product.id }}">
+                        <input type="hidden" name="product" id="id_product"
+                               value="{{ product.id }}">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button form="myform" type="submit" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button form="review-form" type="submit" class="btn btn-primary">Send
+                        message
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         $(document).ready(function () {
-            {#$("form").data("validator").settings.ignore = "";#}
         });
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
@@ -210,12 +224,57 @@
                 // Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
-                        $('#invalid').removeClass('d-none');
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                            form.classList.add('was-validated');
+                        } else {
+                            form.classList.add('was-validated');
+                            event.preventDefault();
+                            let $form = $(this),
+                                url = $form.attr('action');
+
+                            /* Send the data using post with element id name and name2*/
+                            let request = $.ajax({
+                                url: url,
+                                method: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    name: $('#id_name').val(),
+                                    email: $('#id_email').val(),
+                                    rating: $('#id_rating').val(),
+                                    comment: $('#id_comment').val(),
+                                    product: $('#id_product').val(),
+                                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                                },
+                            });
+                            request.done(function (msg) {
+                                $('#mymodal').modal('hide');
+                                parent = $('body');
+                                msg = 'You review added successfully';
+                                parent.append('<small id="myalert" class="alert alert-success">' + msg + '</small>');
+                                setTimeout(function () {
+                                    $('#myalert').hide('slow', function () {
+                                        $('#myalert').remove();
+                                    });
+                                }, 2500);
+                            });
+                            request.fail(function (jqXHR, status) {
+                                let temp = JSON.parse(jqXHR['responseText']);
+                                console.log(temp);
+                                parent = $form;
+                                if (temp != null)
+                                    for (let i = 0; i < temp.email.length; i++) {
+                                        parent.append('<small id="myalert" class="alert alert-danger">' + temp.email[i] + '</small>');
+                                        setTimeout(function () {
+                                            $('#myalert').hide('slow', function () {
+                                                $('#myalert').remove();
+                                            });
+                                        }, 2500);
+                                    }
+
+                            });
                         }
-                        form.classList.add('was-validated');
                     }, false);
                 });
             }, false);

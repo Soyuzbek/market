@@ -12,7 +12,8 @@
                         {% if messages %}
                             <ul class="messagelist">
                                 {% for message in messages %}
-                                    <li{% if message.tags %} class="{{ message.extra_tags }}"{% endif %}>{{ message }}</li>
+                                    <li{% if message.tags %}
+                                        class="{{ message.extra_tags }}"{% endif %}>{{ message }}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
@@ -20,16 +21,13 @@
                             <h2>{% trans 'Checkout' %}</h2>
                         </div>
 
-                        <form action="{% url 'checkout' %}" method="post" id="myform" class="needs-validation"
+                        <form action="{% url 'checkout' %}" method="post" id="checkout-form" class="needs-validation"
                               novalidate>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     {{ form.first_name }}
                                     <small class="invalid-feedback">
-                                        {{ form.first_name.help_text }}
-                                    </small>
-                                    <small class="valid-feedback">
                                         {{ form.first_name.help_text }}
                                     </small>
                                 </div>
@@ -46,7 +44,7 @@
                                     </small>
                                     {% if form.email.errors %}
                                         <small class="alert alert-danger">
-                                        {{ form.email.errors|striptags }}
+                                            {{ form.email.errors|striptags }}
                                         </small>
                                     {% endif %}
                                 </div>
@@ -66,7 +64,7 @@
                                     </small>
                                     {% if form.phone.errors %}
                                         <small class="alert alert-danger col-mb-3">
-                                        {{ form.phone.errors|striptags }}
+                                            {{ form.phone.errors|striptags }}
                                         </small>
                                     {% endif %}
                                 </div>
@@ -89,7 +87,7 @@
                         <div class="payment-method">
                             <p>{% trans 'Cash on delivery' %}</p>
                             <div class="cart-btn mt-100">
-                                <button type="submit" form="myform"
+                                <button type="submit" form="checkout-form"
                                         class="btn amado-btn w-100">{% trans 'Checkout' %}</button>
                             </div>
                         </div>
