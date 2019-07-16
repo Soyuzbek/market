@@ -81,6 +81,13 @@ class UserProfile(models.Model):
         return f'of {self.user}'
 
 
+class Email(models.Model):
+    email = models.EmailField(unique=True, max_length=254)
+
+    def __str__(self):
+        return f'{self.email}'
+
+
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:

@@ -23,8 +23,9 @@ from rest_framework.permissions import AllowAny
 
 from products import views as pro_views
 from products.models import Review, Product
-from products.serializer import ReviewSerializer, ProductSerializer
+from products.serializer import ReviewSerializer, ProductSerializer, EmailSerializer
 from products.views import CartView
+from users.models import Email
 from users.views import LanguageView
 
 
@@ -40,16 +41,22 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny, )
 
 
+class EmailViewSet(viewsets.ModelViewSet):
+    queryset = Email.objects.all()
+    serializer_class = EmailSerializer
+    permission_classes = (AllowAny, )
+
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register('rev', ReviewViewSet, base_name='rev')
-router.register('prod', ProductViewSet, base_name='prod')
-# router.register(r'clients', pro_views.ReviewView, base_name='create')
+router.register('reviews', ReviewViewSet)
+router.register('products', ProductViewSet)
+router.register('emails', EmailViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
 urlpatterns = [
-    path('reviews/', include((router.urls, router), namespace='router')),
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('lang/<str:lang>', LanguageView.as_view(), name='lang'),
     path('translate/', include('rosetta.urls')),

@@ -21,7 +21,7 @@ class Category(models.Model):
 class Review(models.Model):
     product = models.ForeignKey('Product', models.CASCADE, 'review_set', verbose_name=_('product'), null=True)
     name = models.CharField(_('name'), max_length=255, help_text=_('Please enter your name'))
-    email = models.EmailField(verbose_name=_('Email'), help_text=_('The email field can\'t be empty'))
+    email = models.EmailField(verbose_name=_('Email'), help_text=_('The email field can\'t be empty'), unique=True)
     rating = models.DecimalField(_('Your rating'), max_digits=4, decimal_places=2, help_text=_('Please rate us'))
     comment = models.TextField(verbose_name=_('comment'), validators=[MinLengthValidator(15)], null=True, blank=True)
 
