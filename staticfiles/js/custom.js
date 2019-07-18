@@ -54,7 +54,7 @@ $('#cartDelete').click(function () {
 });
 
 function cartAdd(pk, url, token, qty) {
-    if(isNaN(qty))
+    if (isNaN(qty))
         qty = '1';
     $.ajax({
         url: url,
@@ -104,3 +104,36 @@ function favAdd(url, pk, token) {
     })
 
 }
+
+jQuery(document).ready(function ($) {
+
+    $(".btnrating").on('click', (function (e) {
+        let previous_value = $('#id_rating').val();
+
+        let selected_value = $(this).attr("data-attr");
+        $("#id_rating").val(selected_value);
+
+        $(".selected-rating").empty();
+        $(".selected-rating").html(selected_value);
+
+        for (i = 1; i <= selected_value; ++i) {
+            $("#rating-star-" + i).toggleClass('btn-warning');
+            $("#rating-star-" + i).toggleClass('btn-default');
+        }
+
+        for (ix = 1; ix <= previous_value; ++ix) {
+            $("#rating-star-" + ix).toggleClass('btn-warning');
+            $("#rating-star-" + ix).toggleClass('btn-default');
+        }
+
+    }));
+
+
+});
+
+
+$('.open-modal').click(function(e)
+{
+    e.preventDefault();
+    $('#mymodal').modal('show');
+});
