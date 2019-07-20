@@ -79,9 +79,9 @@
                     <div class="cart-summary">
                         <h5>Cart Total</h5>
                         <ul class="summary-table">
-                            <li><span>subtotal:</span> <span>{{ request.session.subtotal }}</span></li>
-                            <li><span>delivery:</span> <span>Free</span></li>
-                            <li><span>total:</span> <span>{{ total }}</span></li>
+                            <li><span>subtotal:</span> <span>{{ request.session.subtotal }} {% trans 'Som' %}</span></li>
+                            <li><span>delivery:</span> <span>{% trans 'Free' %}</span></li>
+                            <li><span>total:</span> <span>{{ total }} {% trans 'Som' %}</span></li>
                         </ul>
 
                         <div class="payment-method">

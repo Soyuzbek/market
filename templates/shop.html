@@ -116,7 +116,7 @@
 
                             <div class="product-description d-flex align-items-center justify-content-between">
                                 <!-- Product Meta Data -->
-                                <a href="{% url 'product' product.id %}">
+                                <a href="{% url 'product' product.slug %}">
                                     <div class="product-meta-data">
                                         <div class="line"></div>
                                         <p class="product-price">
@@ -126,7 +126,7 @@
                                 </a>
                                 <!-- Ratings & Cart -->
                                 <div class="ratings-cart text-right">
-                                    <a href="{% url 'product' product.id %}">
+                                    <a href="{% url 'product' product.slug %}">
 
                                         <div class="back-stars">
                                             <i class="fa fa-star" aria-hidden="true"></i>

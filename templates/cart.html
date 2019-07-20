@@ -27,9 +27,8 @@
                             <tbody id="cartList">
                             {% for cart in cart_list %}
                                 <tr class="cart-item">
-                                    <a href="{% url 'product' cart.prodid %}">
                                     <td class="cart_product_img">
-                                        <a href="{% if cart.prodid|ispk %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
+                                        <a href="#"><img src="{{ cart.photo }}" alt="Product"></a>
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
@@ -38,7 +37,6 @@
                                     <td class="price">
                                         <span>{{ cart.price }}</span>
                                     </td>
-                                        </a>
                                     <td class="qty">
                                         <div class="qty-btn d-flex">
                                             <p>Qty</p>

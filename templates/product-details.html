@@ -67,7 +67,7 @@
                         <div class="product-meta-data">
                             <div class="line"></div>
                             <p class="product-price"> {{ product.price }} Som</p>
-                            <a href="{% url 'product' product.id %}">
+                            <a href="{% url 'product' product.slug %}">
                                 <h6>{{ product.name }}</h6>
                             </a>
                             <!-- Ratings & Review -->
@@ -90,7 +90,7 @@
                                 </div>
 
                                 <div class="review">
-                                    <button onclick="favAdd({% url 'fav' %}, {{ product.pk }}, '{{ csrf_token }}')"
+                                    <button onclick="favAdd({% url 'fav' %}, '{{ product.slug }}', '{{ csrf_token }}')"
                                             class="btn btn-sm">{% trans 'Add to Favourite' %}</button>
                                 </div>
 
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <button class="btn amado-btn"
-                                    onclick="let q = $('#qty').val(); cartAdd({{ product.pk }}, {% url 'cart' %}, '{{ csrf_token }}', q)">{% trans 'Add to cart' %}</button>
+                                    onclick="let q = $('#qty').val(); cartAdd('{{ product.id }}', {% url 'cart' %}, '{{ csrf_token }}', q)">{% trans 'Add to cart' %}</button>
                         </div>
 
 
@@ -197,7 +197,7 @@
                             <small class="invalid-feedback">{{ form.comment.help_text }}</small>
                         </div>
                         <input type="hidden" name="product" id="id_product"
-                               value="{{ product.id }}">
+                               value="{{ product.slug }}">
                     </form>
                 </div>
                 <div class="modal-footer">
