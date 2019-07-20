@@ -81,7 +81,7 @@ class CartView(View):
     def post(self, request):
         cart_list = request.session.get('cart', [])
         product = get_object_or_404(Product, pk=request.POST.get('id'))
-        cart_list = [x for x in cart_list if x['prodid'] != product.id]
+        cart_list = [x for x in cart_list if x['prodid'] != str(product.id)]
         if product.status == _('In stock'):
             cart_list.append({'prodid': str(product.id),
                               'name': product.name,
