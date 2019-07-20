@@ -13,42 +13,42 @@
                         <div class="cart-title">
                             <h2>{% trans 'Order' %}</h2>
                         </div>
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    First name
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    {{ order.first_name }}
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    E mail
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    {{ order.email }}
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    Address
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    {{ order.address }}
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    ZIP code
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    {{ order.zip_code }}
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    Phone Number
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    {{ order.phone }}
-                                </div>
-                                <div class="col-12 mb-3">
-                                    {{ order.comment }}
-                                </div>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                First name
                             </div>
+                            <div class="col-md-6 mb-3">
+                                {{ order.first_name }} {{ order.last_name }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                E mail
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ order.email }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                Address
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ order.address }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                ZIP code
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ order.zip_code }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                Phone Number
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ order.phone }}
+                            </div>
+                            <div class="col-12 mb-3">
+                                {{ order.comment }}
+                            </div>
+                        </div>
                         </form>
                     </div>
                     <div class="cart-table clearfix">
@@ -65,7 +65,7 @@
                             {% for cart in order.product_set.all %}
                                 <tr class="cart-item">
                                     <td class="cart_product_img">
-                                        <a href="{% if cart.prodid %}{% url 'product' cart.prodid %}{% else %}#{% endif %}"><img src="{{ cart.photo }}" alt="Product"></a>
+                                   <img src="{{ cart.photo }}" alt="Product">
                                     </td>
                                     <td class="cart_product_desc">
                                         <h5>{{ cart.name }}</h5>
@@ -93,4 +93,6 @@
                     </div>
                 </div>
             </div>
-        </div>{% endblock %}
+        </div>
+    </div>
+{% endblock %}

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'users',
     'products',
     'rest_framework',
+    'django.contrib.sitemaps'
 ]
 
 MIDDLEWARE = [

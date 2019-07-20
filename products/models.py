@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -96,7 +98,8 @@ class Product(models.Model):
         (_('Not available'), _('Not available')),
         (_('In stock'), _('In stock'))
     ]
-    name = models.CharField(_('name'), max_length=255)
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    slug = models.SlugField(blank=True, null=True)
     description = models.TextField(_('description'), null=True)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name=_('category'), null=True)
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING, verbose_name=_('brand'), null=True)
@@ -114,6 +117,13 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'slug': self.slug})
 
 
 class Favourite(models.Model):

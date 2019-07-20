@@ -58,6 +58,8 @@ class ShopView(View):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product-details.html'
+    slug_field = 'slug'
+    query_pk_and_slug = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,10 +80,10 @@ class CartView(View):
 
     def post(self, request):
         cart_list = request.session.get('cart', [])
-        product = Product.objects.get(pk=request.POST.get('pk'))
-        cart_list = [x for x in cart_list if x['prodid'] !=product.id]
+        product = get_object_or_404(Product, pk=request.POST.get('id'))
+        cart_list = [x for x in cart_list if x['prodid'] != product.id]
         if product.status == _('In stock'):
-            cart_list.append({'prodid': product.id,
+            cart_list.append({'prodid': str(product.id),
                               'name': product.name,
                               'price': str(product.price),
                               'quantity': request.POST.get('qty', '1'),
@@ -98,18 +100,21 @@ class CartView(View):
     def put(self, request):
         request.PUT = QueryDict(request.body)
         cart_list = request.session.get('cart')
+        print(request.PUT.get('qty'))
+        print(cart_list)
         for el in cart_list:
-            if el['prodid'] == int(request.PUT.get('pk')):
+            if el['prodid'] == request.PUT.get('id'):
                 el['quantity'] = request.PUT.get('qty')
                 print(el['quantity'])
         request.session['cart'] = cart_list
         request.session['subtotal'] = str(
-            sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart')]))
+            sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart', [])]))
         return JsonResponse({'data': request.session['subtotal']})
 
     def delete(self, request):
         if request.session['cart']:
             request.session['cart'] = []
+            request.session['subtotal'] = '0'
             return JsonResponse({'data': _('Your cart has been cleared cleared successfully'), 'status': True})
         return JsonResponse({'data': _('Your cart is already clear'), 'status': False})
 
@@ -120,16 +125,17 @@ class FavView(View):
     template_name = 'shop.html'
 
     def get(self, request):
-        pks = request.session.get('favourites', [])
-        product_set = self.model.objects.filter(pk__in=pks)
+        slugs = request.session.get('favourites', [])
+        product_set = self.model.objects.filter(slug__in=slugs)
         return render(request, self.template_name, locals())
 
     def post(self, request):
-        pk = str(request.POST.get('pk'))
-        pks = request.session.get('favourites', [])
-        if pk not in pks:
-            pks.append(pk)
-            request.session['favourites'] = pks
+        slug = request.POST.get('slug')
+        get_object_or_404(self.model, slug=slug)
+        slugs = request.session.get('favourites', [])
+        if slug not in slugs:
+            slugs.append(slug)
+            request.session['favourites'] = slugs
         return JsonResponse({'data': _('This product selected as your favourite'), 'status': True})
 
 
@@ -167,7 +173,7 @@ class OrderView(View):
                     OrderProduct.objects.create(**product_json, order=order)
                 return render(request, 'alert.html', {'success': _('Your order conformed successfully')})
             order.delete()
-            return JsonResponse({'data':  _('Order can\'t be empty')})
+            return render(request, 'alert.html', {'danger': _('Order can\'t be empty')})
         return JsonResponse({'data':  _('Please correct following fields')})
 
 
