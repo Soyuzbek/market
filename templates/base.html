@@ -23,7 +23,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{% static 'css/core-style.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
-{#     <script src="//code.jivosite.com/widget.js" jv-id="gkkwxfq6cl" async></script>#}
+    <script src="//code.jivosite.com/widget.js" jv-id="gkkwxfq6cl" async></script>
 
 </head>
 
@@ -79,6 +79,20 @@
                 {% if user.is_staff %}
                     <li><a href="{% url 'orders' %}">{% trans 'Orders' %}</a></li>
                 {% endif %}
+                <li>
+                    <ul class="list-inline language">
+                        {% get_available_languages as langs %}
+                        {% get_current_language as curr %}
+                        {% for lang, val in langs %}
+                            {% ifnotequal lang curr %}
+                                <li class="list-inline-item language"><a style="border-right: none; padding: 0; margin: 0; "
+                                       href="{% url 'lang' lang %}">
+                                    {{ lang }}
+                                </a></li>
+                            {% endifnotequal %}
+                        {% endfor %}
+                    </ul>
+                </li>
                 <li class="{{ home }}"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
                 <li class="{{ shop }}"><a href="{% url 'only_shop' %}">{% trans 'Shop' %}</a></li>
                 <li class="{{ cart }}"><a href="{% url 'cart' %}">{% trans 'Cart' %}</a></li>
@@ -92,15 +106,17 @@
         </div>
         <!-- Cart Menu -->
         <div class="cart-fav-search mb-100">
-            <a href="{% url 'cart' %}" class="cart-nav"><img src="{% static 'img/core-img/cart.png' %}" alt="">{% trans 'Cart' %}<span>(
+            <a href="{% url 'cart' %}" class="cart-nav"><img src="{% static 'img/core-img/cart.png' %}"
+                                                             alt="">{% trans 'Cart' %}<span>(
                 {% if request.session.cart %}
                     {{ request.session.cart|length }}
                 {% else %}
                     0
                 {% endif %})</span></a>
             <a href="{% url 'fav' %}" class="fav-nav"><img src="{% static 'img/core-img/favorites.png' %}"
-                                                                alt="">{% trans 'Favourite' %}</a>
-            <a href="#" class="search-nav"><img src="{% static 'img/core-img/search.png' %}" alt="">{% trans 'Search' %}</a>
+                                                           alt="">{% trans 'Favourite' %}</a>
+            <a href="#" class="search-nav"><img src="{% static 'img/core-img/search.png' %}" alt="">{% trans 'Search' %}
+            </a>
         </div>
         <!-- Social Button -->
         <div class="social-info d-flex justify-content-between">
@@ -125,7 +141,7 @@
             <div class="col-12 col-lg-6 col-xl-7">
                 <div class="newsletter-text mb-100">
                     {% blocktrans %}
-                    <h2>Subscribe for a<span>25% Discount</span></h2>
+                        <h2>Subscribe for a<span>25% Discount</span></h2>
                     {% endblocktrans %}
                     <p>{% trans 'We will let you know if we have a 25% discount.' %}</p>
                 </div>
@@ -153,9 +169,6 @@
             <div class="col-12 col-lg-4">
                 <div class="single_widget_area">
                     <!-- Logo -->
-                    <div class="footer-logo mr-50">
-                        <a href="{% url 'home' %}"><img src="{% static 'img/core-img/logo2.png' %}" alt=""></a>
-                    </div>
                     <!-- Copywrite Text -->
                     <p class="copywrite">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

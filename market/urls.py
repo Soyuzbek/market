@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, routers
 from rest_framework.permissions import AllowAny
 
+from market.sitemaps import StaticViewSitemap, ProductSitemap, CategorySitemap
 from products import views as pro_views
 from products.models import Review, Product
 from products.serializer import ReviewSerializer, ProductSerializer, EmailSerializer
@@ -55,7 +57,14 @@ router.register('emails', EmailViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
+sitemaps = {
+    'static': StaticViewSitemap,
+    'product': ProductSitemap,
+    'category': CategorySitemap
+}
+
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('lang/<str:lang>', LanguageView.as_view(), name='lang'),
