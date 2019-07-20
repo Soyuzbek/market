@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('.cart-item').change(function () {
         let parent = $(this);
-        let pk = $(this).find('.prodid').text();
+        let id = $(this).find('.prodid').text();
         // size = $(this).find('i').val();
         // color = $(this).find('input[name=color]').val();
         let val = $(this).find('input[name=quantity]').val();
@@ -11,7 +11,7 @@ $(document).ready(function () {
             method: 'PUT',
             dataType: 'json',
             data: {
-                'pk': pk,
+                'id': id,
                 // 'size': size,
                 // 'color': color,
                 'qty': val,
@@ -39,11 +39,13 @@ $('#cartDelete').click(function () {
         },
         success: function (data) {
             $('#cartList').html('');
+            $('#subtotal').html('0 som');
+            $('#total').html('0 som');
             parent = $('body');
             if (data['status'])
-                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+                if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-success" style="z-index: 999;">' + data['data'] + '</small>');
             else
-                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+               if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-danger" style="z-index: 999;">' + data['data'] + '</small>');
             setTimeout(function () {
                 $('#myalert').hide('slow', function () {
                     $('#myalert').remove();
@@ -53,7 +55,7 @@ $('#cartDelete').click(function () {
     });
 });
 
-function cartAdd(pk, url, token, qty) {
+function cartAdd(id, url, token, qty) {
     if (isNaN(qty))
         qty = '1';
     $.ajax({
@@ -62,15 +64,15 @@ function cartAdd(pk, url, token, qty) {
         dataType: 'json',
         data: {
             'csrfmiddlewaretoken': token,
-            'pk': pk,
+            'id': id,
             'qty': qty
         },
         success: function (data) {
             parent = $('body');
             if (data['status'])
-                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+                if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-success" style="z-index: 999;">' + data['data'] + '</small>');
             else
-                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+               if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-danger" style="z-index: 999;">' + data['data'] + '</small>');
             setTimeout(function () {
                 $('#myalert').hide('slow', function () {
                     $('#myalert').remove();
@@ -80,21 +82,21 @@ function cartAdd(pk, url, token, qty) {
     })
 }
 
-function favAdd(url, pk, token) {
+function favAdd(url, slug, token) {
     $.ajax({
         url: url,
         method: 'POST',
         dataType: 'json',
         data: {
             'csrfmiddlewaretoken': token,
-            'pk': pk
+            'slug': slug
         },
         success: function (data) {
             parent = $('body');
             if (data['status'])
-                parent.append('<small id="myalert" class="alert alert-success">' + data['data'] + '</small>');
+                if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-success" style="z-index: 999;">' + data['data'] + '</small>');
             else
-                parent.append('<small id="myalert" class="alert alert-danger">' + data['data'] + '</small>');
+               if($('#myalert').length <= 0) parent.append('<small id="myalert" class="alert alert-danger" style="z-index: 999;">' + data['data'] + '</small>');
             setTimeout(function () {
                 $('#myalert').hide('slow', function () {
                     $('#myalert').remove();

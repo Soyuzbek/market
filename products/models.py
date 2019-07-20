@@ -12,12 +12,16 @@ class Category(models.Model):
     name = models.CharField(_('name'), max_length=255)
     image = models.ImageField(_('image'), upload_to='categories/', null=True)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('shop', kwargs={'slug': self.name})
 
 
 class Review(models.Model):
@@ -114,6 +118,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+        ordering = ['name']
 
     def __str__(self):
         return str(self.name)

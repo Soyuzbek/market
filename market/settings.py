@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,7 +134,7 @@ EXTRA_LANG_INFO = {
 LANGUAGES = (
     ('en', _('English')),
     ('ky', _('Kirghiz')),
-    ('tr', _('Turkish'))
+    ('ru', _('Русский'))
 )
 # Add custom languages not provided by Django
 LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
