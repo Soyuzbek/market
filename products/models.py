@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from unidecode import unidecode
 
 
 class Category(models.Model):
@@ -124,7 +125,7 @@ class Product(models.Model):
         return str(self.name)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(unidecode(self.name))
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -146,7 +147,7 @@ class Favourite(models.Model):
 class Order(models.Model):
     first_name = models.CharField(_('first name'), max_length=254, null=True, help_text=_('Please enter your name'))
     last_name = models.CharField(_('last name'), max_length=254, null=True, help_text=_('Last name can\'t be blank'))
-    email = models.EmailField(verbose_name=_('email'), help_text=_('Please enter a valide email'))
+    email = models.EmailField(verbose_name=_('email'), help_text=_('Please enter a valid email'))
     address = models.CharField(_('address'), max_length=254, null=True,
                                help_text=_('We can\'t take order without address'))
     phone_regex_kg = RegexValidator(regex=r'^\+?996?\d{9,15}$',

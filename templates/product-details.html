@@ -154,11 +154,9 @@
                         {% csrf_token %}
                         <div class="form-group">
                             {{ form.name }}
-                            <small class="invalid-feedback">{{ form.name.help_text }}</small>
                         </div>
                         <div class="form-group">
                             {{ form.email }}
-                            <small class="invalid-feedback">{{ form.email.help_text }}</small>
                         </div>
                         <label class="control-label" for="rating">
                             <span class="field-label-header">{% trans 'Are you happy to use our product' %}?*</span><br>
@@ -188,16 +186,12 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </button>
                         <br>
-                        <h2>
-                            <small id="invalid"
-                                   class="invalid-feedback">{{ form.rating.help_text }}</small>
-                        </h2>
                         <div class="form-group">
                             <br>{{ form.comment }}
                             <small class="invalid-feedback">{{ form.comment.help_text }}</small>
                         </div>
                         <input type="hidden" name="product" id="id_product"
-                               value="{{ product.slug }}">
+                               value="{{ product.pk }}">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -211,73 +205,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-        });
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            form.classList.add('was-validated');
-                        } else {
-                            form.classList.add('was-validated');
-                            event.preventDefault();
-                            let $form = $(this),
-                                url = $form.attr('action');
-
-                            /* Send the data using post with element id name and name2*/
-                            let request = $.ajax({
-                                url: url,
-                                method: 'POST',
-                                dataType: 'json',
-                                data: {
-                                    name: $('#id_name').val(),
-                                    email: $('#id_email').val(),
-                                    rating: $('#id_rating').val(),
-                                    comment: $('#id_comment').val(),
-                                    product: $('#id_product').val(),
-                                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
-                                },
-                            });
-                            request.done(function (msg) {
-                                $('#mymodal').modal('hide');
-                                parent = $('body');
-                                msg = 'You review added successfully';
-                                parent.append('<small id="myalert" class="alert alert-success">' + msg + '</small>');
-                                setTimeout(function () {
-                                    $('#myalert').hide('slow', function () {
-                                        $('#myalert').remove();
-                                    });
-                                }, 2500);
-                            });
-                            request.fail(function (jqXHR, status) {
-                                let temp = JSON.parse(jqXHR['responseText']);
-                                console.log(temp);
-                                parent = $form;
-                                if (temp != null)
-                                    for (let i = 0; i < temp.email.length; i++) {
-                                        parent.append('<small id="myalert" class="alert alert-danger">' + temp.email[i] + '</small>');
-                                        setTimeout(function () {
-                                            $('#myalert').hide('slow', function () {
-                                                $('#myalert').remove();
-                                            });
-                                        }, 2500);
-                                    }
-
-                            });
-                        }
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
 {% endblock %}

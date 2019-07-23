@@ -29,5 +29,4 @@ class LanguageView(View):
 
     def get(self, request, lang):
         request.session['_language'] = lang
-        print(request.session['_language'])
         return redirect(request.META.get('HTTP_REFERER', '/'))

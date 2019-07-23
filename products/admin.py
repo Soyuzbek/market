@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from products.models import Product, Category, Brand, Image, Size, Color, Favourite, Order, OrderProduct, Review
+from products.models import Product, Category, Brand, Image, Favourite, Order, OrderProduct, Review
+from users.models import Email
 
 
 class ImageInline(admin.StackedInline):
@@ -13,7 +14,8 @@ class ImageInline(admin.StackedInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'discount', 'get_colors', 'status')
     list_editable = ('price', 'discount', 'status')
-    inlines = (ImageInline, )
+    inlines = (ImageInline,)
+
     @staticmethod
     def get_colors(obj):
         return "\n\t".join([c.name for c in obj.color.all()])
@@ -26,16 +28,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Size)
-class SizeAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Color)
-class ColorAdmin(admin.ModelAdmin):
     pass
 
 
@@ -54,11 +46,16 @@ class ProdOrderInline(admin.StackedInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'email', 'date', 'address')
-    list_editable = ('address', )
+    list_editable = ('address',)
     inlines = [ProdOrderInline]
     pass
 
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
     pass

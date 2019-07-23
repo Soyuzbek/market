@@ -14,7 +14,7 @@ class OrderForm(ModelForm):
             'email': TextInput(attrs={'class': 'form-control', 'placeholder': _('E-mail')}),
             'address': TextInput(attrs={'class': 'form-control', 'placeholder': _('address')}),
             'zip_code': TextInput(attrs={'class': 'form-control', 'placeholder': _('ZIP code')}),
-            'phone': TextInput(attrs={'class': 'form-control', 'placeholder': '+996(___)__-__-__'}),
+            'phone': TextInput(attrs={'class': 'form-control', 'placeholder': _('phone number')}),
             'comment': Textarea(
                 attrs={'class': 'form-control w-100', 'placeholder': _('Leave a comment about your order'), 'cols': 30, 'rows': 30})
         }
