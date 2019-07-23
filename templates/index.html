@@ -10,7 +10,7 @@
             <!-- Single Catagory -->
             {% for category, min in category_set %}
                 <div class="single-products-catagory clearfix">
-                    <a href="{% url 'shop' category %}">
+                    <a href="{% url 'shop' category.slug %}">
                         <img src="{{ category.image.url }}" alt="{{ category.name }} image">
                         <!-- Hover Content -->
                         <div class="hover-content">

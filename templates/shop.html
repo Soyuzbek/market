@@ -17,7 +17,7 @@
                 <ul>
                     {% for category in category_set %}
                         <li class="{% if this_category == category %} active {% endif %}"><a
-                                href="{% url 'shop' category %}">{{ category.name }}</a></li>
+                                href="{% url 'shop' category.slug %}">{{ category.name }}</a></li>
                     {% endfor %}
 
                 </ul>
