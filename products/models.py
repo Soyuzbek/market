@@ -11,6 +11,7 @@ from unidecode import unidecode
 
 class Category(models.Model):
     name = models.CharField(_('name'), max_length=255)
+    slug = models.SlugField(blank=True, null=True)
     image = models.ImageField(_('image'), upload_to='categories/', null=True)
 
     class Meta:
@@ -20,6 +21,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(unidecode(self.name))
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('shop', kwargs={'slug': self.name})
