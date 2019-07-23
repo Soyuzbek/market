@@ -40,7 +40,7 @@ class ShopView(View):
         if slug is None:
             this_category = Category.objects.first()
         else:
-            this_category = get_object_or_404(Category, name=unquote(slug))
+            this_category = get_object_or_404(Category, slug=slug)
         category_set = Category.objects.all()
         brands = request.GET.getlist('brands')
         product_set = self.model.objects.filter(category=this_category)
