@@ -14,8 +14,8 @@
                         <img src="{{ category.image.url }}" alt="{{ category.name }} image">
                         <!-- Hover Content -->
                         <div class="hover-content">
-                            <div class="line"></div>
-                                From  {{ min.price__min|floatformat:2 }} Som
+                            <div class="line"></div>{% blocktrans %}
+                                From  {{ min.price__min|floatformat:2 }} Som {% endblocktrans %}
                             <h4>{{ category.name }}</h4>
                         </div>
                     </a>

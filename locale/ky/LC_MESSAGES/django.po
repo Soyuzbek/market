@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-20 14:34+0000\n"
-"PO-Revision-Date: 2019-07-23 16:06+0000\n"
-"Last-Translator: b'Anonymous User <narynbeknurt@gmail.com>'\n"
+"POT-Creation-Date: 2019-07-24 09:51+0000\n"
+"PO-Revision-Date: 2019-07-24 09:55+0000\n"
+"Last-Translator: b'Anonymous User <soyuzbek196.kg@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -434,7 +434,7 @@ msgid "File"
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/db/models/fields/files.py:360
-#: products/models.py:83
+#: products/models.py:89
 msgid "Image"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr[1] "Please submit %d or more forms.\t"
 
 #: env/lib/python3.6/site-packages/django/forms/formsets.py:371
 #: env/lib/python3.6/site-packages/django/forms/formsets.py:373
-#: products/models.py:165 templates/order.html:4 templates/order.html:14
+#: products/models.py:171 templates/order.html:4 templates/order.html:14
 msgid "Order"
 msgstr ""
 
@@ -1395,15 +1395,15 @@ msgstr "%s: error: %s\n"
 msgid "None"
 msgstr ""
 
-#: market/settings.py:135
+#: market/settings.py:138
 msgid "English"
 msgstr ""
 
-#: market/settings.py:136
+#: market/settings.py:139
 msgid "Kirghiz"
 msgstr ""
 
-#: market/settings.py:137
+#: market/settings.py:140
 msgid "Русский"
 msgstr ""
 
@@ -1419,13 +1419,19 @@ msgstr "Атасынын аты"
 msgid "E-mail"
 msgstr "электрондук почта"
 
-#: products/forms.py:15 products/models.py:150 templates/orders.html:22
+#: products/forms.py:15 products/models.py:156 templates/orders.html:22
 msgid "address"
 msgstr "дарек"
 
 #: products/forms.py:16
 msgid "ZIP code"
 msgstr "почта"
+
+#: products/forms.py:17
+#, fuzzy
+#| msgid "Enter your phone number"
+msgid "phone number"
+msgstr "Телефон номуруңузду териңиз"
 
 #: products/forms.py:19
 msgid "Leave a comment about your order"
@@ -1443,238 +1449,240 @@ msgstr ""
 msgid "Leave your comment"
 msgstr "Ой пикир калтырыңыз"
 
-#: products/models.py:12 products/models.py:29 products/models.py:40
-#: products/models.py:66 products/models.py:105 products/models.py:171
+#: products/models.py:13 products/models.py:35 products/models.py:46
+#: products/models.py:72 products/models.py:111 products/models.py:177
 msgid "name"
 msgstr "Аты"
 
-#: products/models.py:13 products/models.py:42 products/models.py:67
-#: products/models.py:78
+#: products/models.py:15 products/models.py:48 products/models.py:73
+#: products/models.py:84
 msgid "image"
 msgstr "Сүрөт"
 
-#: products/models.py:16
+#: products/models.py:18
 msgid "Category"
 msgstr "Категория"
 
-#: products/models.py:17 templates/shop.html:13
+#: products/models.py:19 templates/shop.html:13
 msgid "Categories"
 msgstr "Категориялар"
 
-#: products/models.py:28 products/models.py:79
+#: products/models.py:34 products/models.py:85
 msgid "product"
 msgstr "Товар"
 
-#: products/models.py:29 products/models.py:147
+#: products/models.py:35 products/models.py:153
 msgid "Please enter your name"
 msgstr "Атыңызды териңиз"
 
-#: products/models.py:30
+#: products/models.py:36
 msgid "Email"
 msgstr "электрондук почта"
 
-#: products/models.py:30
+#: products/models.py:36
 msgid "The email field can't be empty"
 msgstr "электрондук почта талаасы бош болбошу керек."
 
-#: products/models.py:31
+#: products/models.py:37
 msgid "Your rating"
 msgstr "Сиз берген баа"
 
-#: products/models.py:31
+#: products/models.py:37
 msgid "Please rate us"
 msgstr "Бизди баалаңыз"
 
-#: products/models.py:32 products/models.py:161
+#: products/models.py:38 products/models.py:167
 msgid "comment"
 msgstr "пикир"
 
-#: products/models.py:35
+#: products/models.py:41
 msgid "Reviews"
 msgstr "Ой пикирлер"
 
-#: products/models.py:36
+#: products/models.py:42
 msgid "Review"
 msgstr "Ой пикир"
 
-#: products/models.py:41
+#: products/models.py:47
 msgid "category set"
 msgstr "категориялар тизмеси"
 
-#: products/models.py:43
+#: products/models.py:49
 msgid "about"
 msgstr "Биз жөнүндө"
 
-#: products/models.py:46
+#: products/models.py:52
 msgid "Brand"
 msgstr "Брэнд"
 
-#: products/models.py:47
+#: products/models.py:53
 msgid "Brands"
 msgstr "Брэнддер"
 
-#: products/models.py:54 products/models.py:111
+#: products/models.py:60 products/models.py:117
 msgid "size"
 msgstr "өлчөмү"
 
-#: products/models.py:55
+#: products/models.py:61
 msgid "code"
 msgstr "коду"
 
-#: products/models.py:58
+#: products/models.py:64
 msgid "Size"
 msgstr "Өлчөм"
 
-#: products/models.py:59
+#: products/models.py:65
 msgid "Sizes"
 msgstr "Өлчөмдөр"
 
-#: products/models.py:70
+#: products/models.py:76
 msgid "Color"
 msgstr "Түс"
 
-#: products/models.py:71
+#: products/models.py:77
 msgid "Colors"
 msgstr "Түстөр"
 
-#: products/models.py:84
+#: products/models.py:90
 msgid "Images"
 msgstr "Сүрөттөр"
 
-#: products/models.py:102
+#: products/models.py:108
 msgid "Not available"
 msgstr "Складда жок"
 
-#: products/models.py:103 products/views.py:85
+#: products/models.py:109 products/views.py:85
 msgid "In stock"
 msgstr "Жеткиликтүү"
 
-#: products/models.py:107
+#: products/models.py:113
 msgid "description"
 msgstr "ачыктама"
 
-#: products/models.py:108
+#: products/models.py:114
 msgid "category"
 msgstr "категория"
 
-#: products/models.py:109
+#: products/models.py:115
 msgid "brand"
 msgstr "брэнд"
 
-#: products/models.py:110
+#: products/models.py:116
 msgid "color"
 msgstr "түс"
 
-#: products/models.py:112 products/models.py:172
+#: products/models.py:118 products/models.py:178
 msgid "price"
 msgstr "баасы"
 
-#: products/models.py:113
+#: products/models.py:119
 msgid "discount"
 msgstr "арзандатуу"
 
-#: products/models.py:114
+#: products/models.py:120
 msgid "rating"
 msgstr "рейтинг"
 
-#: products/models.py:115
+#: products/models.py:121
 msgid "status"
 msgstr "акыбалы"
 
-#: products/models.py:116 products/models.py:162
+#: products/models.py:122 products/models.py:168
 msgid "date"
 msgstr "күнү"
 
-#: products/models.py:119
+#: products/models.py:125
 msgid "Product"
 msgstr "Товар"
 
-#: products/models.py:120
+#: products/models.py:126
 msgid "Products"
 msgstr "Товарлар"
 
-#: products/models.py:135
+#: products/models.py:141
 msgid "user"
 msgstr "колдонуучу"
 
-#: products/models.py:136
+#: products/models.py:142
 msgid "products"
 msgstr "Товарлар"
 
-#: products/models.py:139 templates/base.html:117
+#: products/models.py:145 templates/base.html:121
 msgid "Favourite"
 msgstr "Фаворит"
 
-#: products/models.py:140
+#: products/models.py:146
 msgid "Favourites"
 msgstr "Фавориттер"
 
-#: products/models.py:147
+#: products/models.py:153
 msgid "first name"
 msgstr "Аты"
 
-#: products/models.py:148
+#: products/models.py:154
 msgid "last name"
 msgstr "атасынын аты"
 
-#: products/models.py:148
+#: products/models.py:154
 msgid "Last name can't be blank"
 msgstr "Атасынын аты бош болбоосу керек"
 
-#: products/models.py:149
+#: products/models.py:155
 msgid "email"
 msgstr "электрондук почта"
 
-#: products/models.py:149
-msgid "Please enter a valide email"
+#: products/models.py:155
+#, fuzzy
+#| msgid "Please enter a valide email"
+msgid "Please enter a valid email"
 msgstr "Туура электрондук почта киргизиңиз"
 
-#: products/models.py:151
+#: products/models.py:157
 msgid "We can't take order without address"
 msgstr "Дарексиз буюртма ала албайбыз"
 
-#: products/models.py:153
+#: products/models.py:159
 msgid "+996(123)456789"
 msgstr ""
 
-#: products/models.py:155
+#: products/models.py:161
 msgid "phone"
 msgstr "Телефон"
 
-#: products/models.py:156
+#: products/models.py:162
 msgid "Enter your phone number"
 msgstr "Телефон номуруңузду териңиз"
 
-#: products/models.py:157
+#: products/models.py:163
 msgid "zip code"
 msgstr "почта"
 
-#: products/models.py:158
+#: products/models.py:164
 msgid "subtotal"
 msgstr "товардын суммасы"
 
-#: products/models.py:159
+#: products/models.py:165
 msgid "total"
 msgstr "Баары"
 
-#: products/models.py:160
+#: products/models.py:166
 msgid "delivery"
 msgstr "жеткирүү"
 
-#: products/models.py:166 templates/base.html:80 templates/orders.html:4
+#: products/models.py:172 templates/base.html:83 templates/orders.html:4
 #: templates/orders.html:12
 msgid "Orders"
 msgstr "Буюртмалар"
 
-#: products/models.py:170
+#: products/models.py:176
 msgid "id of product"
 msgstr "товардын ID си"
 
-#: products/models.py:173
+#: products/models.py:179
 msgid "quantity"
 msgstr "саны"
 
-#: products/models.py:174
+#: products/models.py:180
 msgid "photo"
 msgstr "фото"
 
@@ -1734,43 +1742,43 @@ msgstr "Чыгуу"
 msgid "Project"
 msgstr "Долбоор"
 
-#: templates/base.html:41
+#: templates/base.html:44
 msgid "Type your keyword..."
 msgstr "Ачкыч сөздү териңиз..."
 
-#: templates/base.html:96 templates/base.html:195 templates/index.html:4
+#: templates/base.html:100 templates/base.html:199 templates/index.html:4
 msgid "Home"
 msgstr "Башкы"
 
-#: templates/base.html:97 templates/base.html:198
+#: templates/base.html:101 templates/base.html:202
 msgid "Shop"
 msgstr "Шоп"
 
-#: templates/base.html:98 templates/base.html:110 templates/base.html:201
+#: templates/base.html:102 templates/base.html:114 templates/base.html:205
 #: templates/cart.html:6
 msgid "Cart"
 msgstr "Куржун"
 
-#: templates/base.html:99 templates/base.html:204 templates/cart.html:71
-#: templates/checkout.html:4 templates/checkout.html:21
-#: templates/checkout.html:91
+#: templates/base.html:103 templates/base.html:208 templates/cart.html:71
+#: templates/checkout.html:5 templates/checkout.html:22
+#: templates/checkout.html:77
 msgid "Checkout"
 msgstr "Буйрутма"
 
-#: templates/base.html:104
+#: templates/base.html:108
 #, python-format
 msgid "%%Discount%%"
 msgstr "%%Арзандатуулар%%"
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "New this week"
 msgstr "Бул жумада"
 
-#: templates/base.html:118
+#: templates/base.html:122
 msgid "Search"
 msgstr "Издөө"
 
-#: templates/base.html:143
+#: templates/base.html:147
 #, python-format
 msgid ""
 "\n"
@@ -1780,16 +1788,16 @@ msgstr ""
 "\n"
 "<h2><span>25%% Арзандууга</span> жазылыңыз</h2>"
 
-#: templates/base.html:146
+#: templates/base.html:150
 #, python-format
 msgid "We will let you know if we have a 25%% discount."
 msgstr "Бизде 25%% арзандуу болгондо сизге кабарлап коёбуз."
 
-#: templates/base.html:154
+#: templates/base.html:158
 msgid "Your E-mail"
 msgstr "Сиздин электрондук почта"
 
-#: templates/base.html:155
+#: templates/base.html:159
 msgid "Subscribe"
 msgstr "Жазылуу"
 
@@ -1819,17 +1827,26 @@ msgstr "өчүрүү"
 msgid "som"
 msgstr "сом"
 
-#: templates/checkout.html:82 templates/checkout.html:84
+#: templates/checkout.html:68 templates/checkout.html:70
 msgid "Som"
 msgstr "Сом"
 
-#: templates/checkout.html:83
+#: templates/checkout.html:69
 msgid "Free"
 msgstr "Бекер"
 
-#: templates/checkout.html:88
+#: templates/checkout.html:74
 msgid "Cash on delivery"
 msgstr "Товарды алганда төлөө"
+
+#: templates/index.html:17
+#, python-format
+msgid ""
+"\n"
+"                                From  %(min.price__min|floatformat:2)s Som "
+msgstr ""
+"\n"
+"From %(min.price__min|floatformat:2)s Som"
 
 #: templates/order.html:59
 msgid "Name"
@@ -1871,7 +1888,7 @@ msgstr "Куржунга кошуу"
 msgid "Leave a review"
 msgstr "Ой пикир калтыруу"
 
-#: templates/product-details.html:164
+#: templates/product-details.html:162
 msgid "Are you happy to use our product"
 msgstr "Биздин товарды колдонуу менен кубанычтасызбы"
 

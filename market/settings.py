@@ -120,6 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'users.User'
 # LOGIN_URL = '/account/login/'
 
+gettext = lambda s: s
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 EXTRA_LANG_INFO = {
