@@ -84,16 +84,8 @@
     </div>
 {% endblock %}
 {% block js %}
-    <script src="{% static 'js/jquery/jquery.mask.js' %}"></script>
-    <script>
-    jQuery.validator.addMethod(
-    "regex",
-    function(value, element, regexp) {
-        return this.optional(element) || regexp.test(value);
-    },
-    "Please check your input."
-);
 
+    <script>
     $('#id_phone').mask('+(996) (000) 00 00 00');
     </script>
 {% endblock %}

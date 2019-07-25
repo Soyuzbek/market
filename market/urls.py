@@ -13,12 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django import get_version
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
+from django.views.i18n import JavaScriptCatalog
 from rest_framework import viewsets, routers
 from rest_framework.permissions import AllowAny
 
@@ -40,13 +43,13 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
 
 class EmailViewSet(viewsets.ModelViewSet):
     queryset = Email.objects.all()
     serializer_class = EmailSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -62,6 +65,10 @@ sitemaps = {
     'product': ProductSitemap,
     'category': CategorySitemap
 }
+# js_info_dict = {
+#     'domain': 'djangojs',
+#     'packages': ('admin',),
+# }
 
 urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
@@ -79,7 +86,11 @@ urlpatterns = [
     path('checkout/', pro_views.OrderView.as_view(), name='checkout'),
     path('orders/', pro_views.OrderList.as_view(), name='orders'),
     path('order/<int:pk>/', pro_views.OrderDetail.as_view(), name='order'),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    # path('jsi18n/',
+    #      cache_page(86400, key_prefix='js18n-%s' % get_version())(JavaScriptCatalog.as_view()),
+    #      name='javascript-catalog'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

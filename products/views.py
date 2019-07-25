@@ -160,6 +160,7 @@ class OrderView(View):
 
     def post(self, request):
         form = self.form_class(request.POST)
+        print(request.POST)
         total = request.session.get('subtotal', 0)
         checkout = 'active'
         if form.is_valid() and total !='0':
@@ -174,7 +175,8 @@ class OrderView(View):
                 return render(request, 'alert.html', {'success': _('Your order conformed successfully')})
             order.delete()
             return render(request, 'alert.html', {'danger': _('Order can\'t be empty')})
-        return JsonResponse({'data':  _('Please correct following fields')})
+        print(form.errors)
+        return render(request, self.template_name, {'form': form})
 
 
 class OrderList(ListView):
