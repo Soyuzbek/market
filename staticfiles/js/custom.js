@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $('.cart-item').change(function () {
         let parent = $(this);
@@ -166,7 +167,7 @@ $(document).ready(function () {
             }
         },
         messages: {
-            email: "<small class='invalid feedback text-white'> Enter a valid email </small>",
+            email: "<small class='invalid feedback text-white'> gettext('Enter a valid email')</small>",
         },
         submitHandler: function (form) {
             $.ajax({
@@ -221,8 +222,8 @@ $(document).ready(function () {
         },
         messages: {
             name: {
-                required: "<small class='invalid feedback text-danger'> Please enter your name </small>",
-                minlength: "<small class='invalid feedback text-danger'> The name can not be short than 3 character </small>"
+                required: "<small class='invalid feedback text-danger'>gettext('Please enter your name') </small>",
+                minlength: "<small class='invalid feedback text-danger'>gettext('The name can not be short than 3 character') </small>"
             },
             email: {
                 required: "<small class='invalid feedback text-danger'> The email field can not be empty </small>",
@@ -275,6 +276,7 @@ $(document).ready(function () {
                     }
 
             });
+            return false;
         }
     });
     // Checkout form validation

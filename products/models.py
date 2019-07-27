@@ -155,10 +155,10 @@ class Order(models.Model):
     email = models.EmailField(verbose_name=_('email'), help_text=_('Please enter a valid email'))
     address = models.CharField(_('address'), max_length=254, null=True,
                                help_text=_('We can\'t take order without address'))
-    phone_regex_kg = RegexValidator(regex=r'^\+?996?\d{9,15}$',
-                                    message=_("+996(123)456789"))
+    phone_regex_kg = RegexValidator(regex=r'^\+\(?\d{3}\)? ?\(?\d{3}\)? ?\d{2} ? ?\d{2} ?\d{2}$',
+                                    message=_("+(996)(123)456789"))
     phone_regex_short_kg = RegexValidator(regex=r'^\0?\d{8,12}$', message='0(123)456789')
-    phone = models.CharField(verbose_name=_('phone'), max_length=15, validators=[phone_regex_kg],
+    phone = models.CharField(verbose_name=_('phone'), max_length=23, validators=[phone_regex_kg],
                              help_text=_('Enter your phone number'), null=True)
     zip_code = models.CharField(_('zip code'), max_length=10, null=True, blank=True)
     subtotal = models.CharField(_('subtotal'), max_length=30)

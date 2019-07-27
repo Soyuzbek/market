@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, Category, Brand, Image, Favourite, Order, OrderProduct, Review
+from products.models import Product, Category, Brand, Image, Favourite, Order, OrderProduct, Review, Color, Size
 from users.models import Email
 
 
@@ -58,4 +58,13 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(Email)
 class EmailAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Size)
+class SizeAdmin(admin.ModelAdmin):
     pass

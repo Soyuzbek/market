@@ -16,7 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.2\n"
 
 #: env/lib/python3.6/site-packages/django/contrib/messages/apps.py:7
@@ -74,8 +76,8 @@ msgstr ""
 
 #: env/lib/python3.6/site-packages/django/core/validators.py:246
 msgid ""
-"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Введите правильный слаг включающее юникод букв, чисел, нижнее подчеркивание "
 "и дефисов"
@@ -293,15 +295,15 @@ msgstr ""
 #: env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1290
 #, python-format
 msgid ""
-"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1294
 #, python-format
 msgid ""
-"'%(value)s' value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1298
@@ -320,8 +322,8 @@ msgstr ""
 #: env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1587
 #, python-format
 msgid ""
-"'%(value)s' value has an invalid format. It must be in [DD] "
-"[HH:[MM:]]ss[.uuuuuu] format."
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1590
@@ -424,7 +426,7 @@ msgid "File"
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/db/models/fields/files.py:360
-#: products/models.py:83
+#: products/models.py:89
 msgid "Image"
 msgstr "Картинка"
 
@@ -456,8 +458,7 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: env/lib/python3.6/site-packages/django/forms/boundfield.py:146
 msgid ":?.!"
 msgstr ""
@@ -507,8 +508,7 @@ msgstr ""
 
 #: env/lib/python3.6/site-packages/django/forms/fields.py:536
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -575,7 +575,7 @@ msgstr[1] ""
 
 #: env/lib/python3.6/site-packages/django/forms/formsets.py:371
 #: env/lib/python3.6/site-packages/django/forms/formsets.py:373
-#: products/models.py:165 templates/order.html:4 templates/order.html:14
+#: products/models.py:171 templates/order.html:4 templates/order.html:14
 msgid "Order"
 msgstr "Заказ"
 
@@ -609,8 +609,7 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/forms/models.py:1158
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/forms/models.py:1272
@@ -1073,11 +1072,11 @@ msgstr ""
 
 #: env/lib/python3.6/site-packages/django/views/csrf.py:124
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the 'Referrer-Policy: no-referrer' header, please remove them. "
-"The CSRF protection requires the 'Referer' header to do strict referer "
-"checking. If you're concerned about privacy, use alternatives like <a "
-"rel=\"noreferrer\" ...> for links to third-party sites."
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the 'Referrer-Policy: no-referrer' header, please remove them. The "
+"CSRF protection requires the 'Referer' header to do strict referer checking. "
+"If you're concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" ...> for links to third-party sites."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/views/csrf.py:132
@@ -1128,8 +1127,8 @@ msgstr ""
 #: env/lib/python3.6/site-packages/django/views/generic/dates.py:589
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/views/generic/dates.py:623
@@ -1188,10 +1187,10 @@ msgstr ""
 #: env/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:368
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
 msgstr ""
 
 #: env/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:383
@@ -1370,15 +1369,11 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: market/settings.py:135
+#: market/settings.py:138
 msgid "English"
 msgstr "Английский"
 
-#: market/settings.py:136
-msgid "Kirghiz"
-msgstr "Кыргызский"
-
-#: market/settings.py:137
+#: market/settings.py:140
 msgid "Русский"
 msgstr "Русский"
 
@@ -1394,13 +1389,19 @@ msgstr "Фамилия"
 msgid "E-mail"
 msgstr "Электронная почта"
 
-#: products/forms.py:15 products/models.py:150 templates/orders.html:22
+#: products/forms.py:15 products/models.py:156 templates/orders.html:22
 msgid "address"
 msgstr "Адн"
 
 #: products/forms.py:16
 msgid "ZIP code"
 msgstr "Адрес почты"
+
+#: products/forms.py:17
+#, fuzzy
+#| msgid "Enter your phone number"
+msgid "phone number"
+msgstr "Введите ваш номер телефона"
 
 #: products/forms.py:19
 msgid "Leave a comment about your order"
@@ -1418,238 +1419,240 @@ msgstr ""
 msgid "Leave your comment"
 msgstr "Оставьте комментарии"
 
-#: products/models.py:12 products/models.py:29 products/models.py:40
-#: products/models.py:66 products/models.py:105 products/models.py:171
+#: products/models.py:13 products/models.py:35 products/models.py:46
+#: products/models.py:72 products/models.py:111 products/models.py:177
 msgid "name"
 msgstr "Имя"
 
-#: products/models.py:13 products/models.py:42 products/models.py:67
-#: products/models.py:78
+#: products/models.py:15 products/models.py:48 products/models.py:73
+#: products/models.py:84
 msgid "image"
 msgstr "Картинка"
 
-#: products/models.py:16
+#: products/models.py:18
 msgid "Category"
 msgstr "Категория"
 
-#: products/models.py:17 templates/shop.html:13
+#: products/models.py:19 templates/shop.html:13
 msgid "Categories"
 msgstr "Категории"
 
-#: products/models.py:28 products/models.py:79
+#: products/models.py:34 products/models.py:85
 msgid "product"
 msgstr "Товар"
 
-#: products/models.py:29 products/models.py:147
+#: products/models.py:35 products/models.py:153
 msgid "Please enter your name"
 msgstr "Введите ваше имя"
 
-#: products/models.py:30
+#: products/models.py:36
 msgid "Email"
 msgstr "Электронная почта"
 
-#: products/models.py:30
+#: products/models.py:36
 msgid "The email field can't be empty"
 msgstr "Электронная почта не может быть пустым"
 
-#: products/models.py:31
+#: products/models.py:37
 msgid "Your rating"
 msgstr "Ваш рейтинг"
 
-#: products/models.py:31
+#: products/models.py:37
 msgid "Please rate us"
 msgstr "Оцените нас"
 
-#: products/models.py:32 products/models.py:161
+#: products/models.py:38 products/models.py:167
 msgid "comment"
 msgstr "Комментарии"
 
-#: products/models.py:35
+#: products/models.py:41
 msgid "Reviews"
 msgstr "Отзывы"
 
-#: products/models.py:36
+#: products/models.py:42
 msgid "Review"
 msgstr "Отзыв"
 
-#: products/models.py:41
+#: products/models.py:47
 msgid "category set"
 msgstr "Категории"
 
-#: products/models.py:43
+#: products/models.py:49
 msgid "about"
 msgstr "О нас"
 
-#: products/models.py:46
+#: products/models.py:52
 msgid "Brand"
 msgstr "Брэнд"
 
-#: products/models.py:47
+#: products/models.py:53
 msgid "Brands"
 msgstr "Брэнда"
 
-#: products/models.py:54 products/models.py:111
+#: products/models.py:60 products/models.py:117
 msgid "size"
 msgstr "размер"
 
-#: products/models.py:55
+#: products/models.py:61
 msgid "code"
 msgstr "код"
 
-#: products/models.py:58
+#: products/models.py:64
 msgid "Size"
 msgstr "Размер"
 
-#: products/models.py:59
+#: products/models.py:65
 msgid "Sizes"
 msgstr "Размеры"
 
-#: products/models.py:70
+#: products/models.py:76
 msgid "Color"
 msgstr "Цвет"
 
-#: products/models.py:71
+#: products/models.py:77
 msgid "Colors"
 msgstr "Цветы"
 
-#: products/models.py:84
+#: products/models.py:90
 msgid "Images"
 msgstr "Картинки"
 
-#: products/models.py:102
+#: products/models.py:108
 msgid "Not available"
 msgstr "Не доступна"
 
-#: products/models.py:103 products/views.py:85
+#: products/models.py:109 products/views.py:85
 msgid "In stock"
 msgstr "В наличии"
 
-#: products/models.py:107
+#: products/models.py:113
 msgid "description"
 msgstr "Описание"
 
-#: products/models.py:108
+#: products/models.py:114
 msgid "category"
 msgstr "Категория"
 
-#: products/models.py:109
+#: products/models.py:115
 msgid "brand"
 msgstr "Брэнд"
 
-#: products/models.py:110
+#: products/models.py:116
 msgid "color"
 msgstr "Цвет"
 
-#: products/models.py:112 products/models.py:172
+#: products/models.py:118 products/models.py:178
 msgid "price"
 msgstr "Цена"
 
-#: products/models.py:113
+#: products/models.py:119
 msgid "discount"
 msgstr "Скидка"
 
-#: products/models.py:114
+#: products/models.py:120
 msgid "rating"
 msgstr "Рейтинг"
 
-#: products/models.py:115
+#: products/models.py:121
 msgid "status"
 msgstr "Статус"
 
-#: products/models.py:116 products/models.py:162
+#: products/models.py:122 products/models.py:168
 msgid "date"
 msgstr "дата"
 
-#: products/models.py:119
+#: products/models.py:125
 msgid "Product"
 msgstr "Товар"
 
-#: products/models.py:120
+#: products/models.py:126
 msgid "Products"
 msgstr "Товары"
 
-#: products/models.py:135
+#: products/models.py:141
 msgid "user"
 msgstr "Пользователь"
 
-#: products/models.py:136
+#: products/models.py:142
 msgid "products"
 msgstr "товары"
 
-#: products/models.py:139 templates/base.html:117
+#: products/models.py:145 templates/base.html:121
 msgid "Favourite"
 msgstr "Фаворит"
 
-#: products/models.py:140
+#: products/models.py:146
 msgid "Favourites"
 msgstr "Фавориты"
 
-#: products/models.py:147
+#: products/models.py:153
 msgid "first name"
 msgstr "Имя"
 
-#: products/models.py:148
+#: products/models.py:154
 msgid "last name"
 msgstr "Фамилия"
 
-#: products/models.py:148
+#: products/models.py:154
 msgid "Last name can't be blank"
 msgstr "Фамилия не может быть пустым"
 
-#: products/models.py:149
+#: products/models.py:155
 msgid "email"
 msgstr "Электронная почта"
 
-#: products/models.py:149
-msgid "Please enter a valide email"
+#: products/models.py:155
+#, fuzzy
+#| msgid "Please enter a valide email"
+msgid "Please enter a valid email"
 msgstr "Введите правильную почту"
 
-#: products/models.py:151
+#: products/models.py:157
 msgid "We can't take order without address"
 msgstr "Мы не можем брать заказ без адреса"
 
-#: products/models.py:153
+#: products/models.py:159
 msgid "+996(123)456789"
 msgstr ""
 
-#: products/models.py:155
+#: products/models.py:161
 msgid "phone"
 msgstr "Телефон"
 
-#: products/models.py:156
+#: products/models.py:162
 msgid "Enter your phone number"
 msgstr "Введите ваш номер телефона"
 
-#: products/models.py:157
+#: products/models.py:163
 msgid "zip code"
 msgstr "Код почты"
 
-#: products/models.py:158
+#: products/models.py:164
 msgid "subtotal"
 msgstr "Цена товаров"
 
-#: products/models.py:159
+#: products/models.py:165
 msgid "total"
 msgstr "Всего"
 
-#: products/models.py:160
+#: products/models.py:166
 msgid "delivery"
 msgstr "Доставка"
 
-#: products/models.py:166 templates/base.html:80 templates/orders.html:4
+#: products/models.py:172 templates/base.html:83 templates/orders.html:4
 #: templates/orders.html:12
 msgid "Orders"
 msgstr "Заказы"
 
-#: products/models.py:170
+#: products/models.py:176
 msgid "id of product"
 msgstr "ID продукта"
 
-#: products/models.py:173
+#: products/models.py:179
 msgid "quantity"
 msgstr "Количество"
 
-#: products/models.py:174
+#: products/models.py:180
 msgid "photo"
 msgstr "Фото"
 
@@ -1709,43 +1712,43 @@ msgstr "Выйти"
 msgid "Project"
 msgstr "Проект"
 
-#: templates/base.html:41
+#: templates/base.html:44
 msgid "Type your keyword..."
 msgstr "Введите ключевые слова"
 
-#: templates/base.html:96 templates/base.html:195 templates/index.html:4
+#: templates/base.html:100 templates/base.html:199 templates/index.html:4
 msgid "Home"
 msgstr "Главная"
 
-#: templates/base.html:97 templates/base.html:198
+#: templates/base.html:101 templates/base.html:202
 msgid "Shop"
 msgstr "Шоп"
 
-#: templates/base.html:98 templates/base.html:110 templates/base.html:201
+#: templates/base.html:102 templates/base.html:114 templates/base.html:205
 #: templates/cart.html:6
 msgid "Cart"
 msgstr "Корзина"
 
-#: templates/base.html:99 templates/base.html:204 templates/cart.html:71
-#: templates/checkout.html:4 templates/checkout.html:21
-#: templates/checkout.html:91
+#: templates/base.html:103 templates/base.html:208 templates/cart.html:71
+#: templates/checkout.html:5 templates/checkout.html:22
+#: templates/checkout.html:77
 msgid "Checkout"
 msgstr "Заказать"
 
-#: templates/base.html:104
+#: templates/base.html:108
 #, python-format
 msgid "%%Discount%%"
 msgstr "%%скидки%%"
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "New this week"
 msgstr "Новые в этой неделе"
 
-#: templates/base.html:118
+#: templates/base.html:122
 msgid "Search"
 msgstr "Искать"
 
-#: templates/base.html:143
+#: templates/base.html:147
 #, python-format
 msgid ""
 "\n"
@@ -1755,16 +1758,16 @@ msgstr ""
 "\n"
 "<h2>Подписаться для <span> 25%% Скидку</span></h2>"
 
-#: templates/base.html:146
+#: templates/base.html:150
 #, python-format
 msgid "We will let you know if we have a 25%% discount."
 msgstr "Мы будем знать когда у нас есть 25%% скидки."
 
-#: templates/base.html:154
+#: templates/base.html:158
 msgid "Your E-mail"
 msgstr "Ваша почта"
 
-#: templates/base.html:155
+#: templates/base.html:159
 msgid "Subscribe"
 msgstr "Подписаться"
 
@@ -1794,17 +1797,24 @@ msgstr "Удалить"
 msgid "som"
 msgstr "сом"
 
-#: templates/checkout.html:82 templates/checkout.html:84
+#: templates/checkout.html:68 templates/checkout.html:70
 msgid "Som"
 msgstr "Сом"
 
-#: templates/checkout.html:83
+#: templates/checkout.html:69
 msgid "Free"
 msgstr "Бесплатно"
 
-#: templates/checkout.html:88
+#: templates/checkout.html:74
 msgid "Cash on delivery"
 msgstr "Оплатить при поступлении"
+
+#: templates/index.html:17
+#, python-format
+msgid ""
+"\n"
+"                                From  %(min.price__min|floatformat:2)s Som "
+msgstr ""
 
 #: templates/order.html:59
 msgid "Name"
@@ -1846,7 +1856,7 @@ msgstr "Добавить в корзину"
 msgid "Leave a review"
 msgstr "Оставить отзыв"
 
-#: templates/product-details.html:164
+#: templates/product-details.html:162
 msgid "Are you happy to use our product"
 msgstr "Вы счатливы используя наш товар"
 
@@ -1873,3 +1883,6 @@ msgstr "Города"
 #: users/models.py:16
 msgid "Town"
 msgstr "Город"
+
+#~ msgid "Kirghiz"
+#~ msgstr "Кыргызский"
