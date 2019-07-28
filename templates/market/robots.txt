@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /lang/
+Disallow: /translate/
+Disallow: /cart/
+Disallow: /favourite/
+Disallow: /search/
+Disallow: /checkout/
+Disallow: /orders/
+Disallow: /order/
+Disallow: /api-auth/
+Disallow: /jsi18n/

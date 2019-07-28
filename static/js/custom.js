@@ -29,14 +29,11 @@ $(document).ready(function () {
 });
 $('#cartDelete').click(function () {
     let path = window.location.href;
-    let token = $('input[name="csrfmiddlewaretoken"]').val();
     $.ajax({
         url: path,
         method: 'DELETE',
         dataType: 'json',
-        data: {
-            'csrfmiddlewaretoken': token,
-        },
+        data: {},
         success: function (data) {
             $('#cartList').html('');
             $('#subtotal').html('0 som');
@@ -54,7 +51,7 @@ $('#cartDelete').click(function () {
     });
 });
 
-function cartAdd(id, url, token, qty) {
+function cartAdd(id, url, qty) {
     if (isNaN(qty))
         qty = '1';
     $.ajax({
@@ -62,7 +59,6 @@ function cartAdd(id, url, token, qty) {
         method: 'POST',
         dataType: 'json',
         data: {
-            'csrfmiddlewaretoken': token,
             'id': id,
             'qty': qty
         },
@@ -80,13 +76,12 @@ function cartAdd(id, url, token, qty) {
     })
 }
 
-function favAdd(url, slug, token) {
+function favAdd(url, slug) {
     $.ajax({
         url: url,
         method: 'POST',
         dataType: 'json',
         data: {
-            'csrfmiddlewaretoken': token,
             'slug': slug
         },
         success: function (data) {
@@ -343,7 +338,6 @@ $(document).ready(function () {
             }
         },
         submitHandler: function (form) {
-            form.phone.unmusk();
             form.submit();
         }
     })
