@@ -5,7 +5,8 @@ django-debug-toolbar==1.11
 django-filter==2.1.0
 django-modeltranslation==0.13.1
 django-rosetta==0.9.2
-djangorestframework==3.9.4
+django-simple-metatags==0.9.2
+djangorestframework==3.10.1
 gunicorn==19.9.0
 idna==2.8
 Markdown==3.1.1

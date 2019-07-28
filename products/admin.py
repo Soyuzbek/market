@@ -60,6 +60,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class EmailAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
     pass
