@@ -11,3 +11,5 @@ Disallow: /orders/
 Disallow: /order/
 Disallow: /api-auth/
 Disallow: /jsi18n/
+
+sitemap: https://unical.kg/sitemap.xml
