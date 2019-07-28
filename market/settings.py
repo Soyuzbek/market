@@ -41,12 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'modeltranslation',
+    # 'modeltranslation',
     'rosetta',
     'users',
     'products',
     'rest_framework',
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
+    'metatags',
 ]
 
 MIDDLEWARE = [
