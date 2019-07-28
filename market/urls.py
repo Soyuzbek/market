@@ -21,6 +21,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 from django.views.i18n import JavaScriptCatalog
 from rest_framework import viewsets, routers
 from rest_framework.permissions import AllowAny
@@ -71,6 +72,7 @@ sitemaps = {
 # }
 
 urlpatterns = [
+    path('robots.txt', TemplateView.as_view(template_name='market/robots.txt', content_type='text/plain')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
@@ -81,16 +83,16 @@ urlpatterns = [
     path('shop/<str:slug>/', pro_views.ShopView.as_view(), name='shop'),
     path('product/<str:slug>/', pro_views.ProductDetailView.as_view(), name='product'),
     path('cart/', csrf_exempt(CartView.as_view()), name='cart'),
-    path('favourite/', pro_views.FavView.as_view(), name='fav'),
+    path('favourite/', csrf_exempt(pro_views.FavView.as_view()), name='fav'),
     path('search/', pro_views.SearchView.as_view(), name='search'),
     path('checkout/', pro_views.OrderView.as_view(), name='checkout'),
     path('orders/', pro_views.OrderList.as_view(), name='orders'),
     path('order/<int:pk>/', pro_views.OrderDetail.as_view(), name='order'),
     path('api-auth/', include('rest_framework.urls')),
-    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    # path('jsi18n/',
-    #      cache_page(86400, key_prefix='js18n-%s' % get_version())(JavaScriptCatalog.as_view()),
-    #      name='javascript-catalog'),
+    # path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path('jsi18n/',
+         cache_page(86400, key_prefix='js18n-%s' % get_version())(JavaScriptCatalog.as_view()),
+         name='javascript-catalog'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
