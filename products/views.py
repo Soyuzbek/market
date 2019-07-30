@@ -38,19 +38,20 @@ class ShopView(View):
     def get(self, request, slug=None):
         shop = 'active'
         if slug is None:
-            this_category = Category.objects.first()
+            product_set = self.model.objects.all()
+            brand_set = Brand.objects.all()
         else:
             this_category = get_object_or_404(Category, slug=slug)
+            product_set = self.model.objects.filter(category=this_category)
+            brand_set = Brand.objects.filter(category_set=this_category)
         category_set = Category.objects.all()
         brands = request.GET.getlist('brands')
-        product_set = self.model.objects.filter(category=this_category)
         if brands:
             product_set = product_set.filter(brand__name__in=request.GET.getlist('brands'))
         minv = request.GET.get('min_val')
         if minv:
             maxv = request.GET.get('max_val')
             product_set = product_set.filter(price__range=[minv, maxv])
-        brand_set = Brand.objects.filter(category_set=this_category)
         product_set.order_by(request.GET.get('select', 'price'))
         return render(request, self.template_name, locals())
 
@@ -100,12 +101,10 @@ class CartView(View):
     def put(self, request):
         request.PUT = QueryDict(request.body)
         cart_list = request.session.get('cart')
-        print(request.PUT.get('qty'))
-        print(cart_list)
+
         for el in cart_list:
             if el['prodid'] == request.PUT.get('id'):
                 el['quantity'] = request.PUT.get('qty')
-                print(el['quantity'])
         request.session['cart'] = cart_list
         request.session['subtotal'] = str(
             sum([Decimal(i['price']) * int(i['quantity']) for i in request.session.get('cart', [])]))
@@ -160,7 +159,6 @@ class OrderView(View):
 
     def post(self, request):
         form = self.form_class(request.POST)
-        print(request.POST)
         total = request.session.get('subtotal', 0)
         checkout = 'active'
         if form.is_valid() and total !='0':
@@ -175,7 +173,6 @@ class OrderView(View):
                 return render(request, 'alert.html', {'success': _('Your order conformed successfully')})
             order.delete()
             return render(request, 'alert.html', {'danger': _('Order can\'t be empty')})
-        print(form.errors)
         return render(request, self.template_name, {'form': form})
 
 

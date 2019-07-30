@@ -66,12 +66,8 @@ sitemaps = {
     'product': ProductSitemap,
     'category': CategorySitemap
 }
-# js_info_dict = {
-#     'domain': 'djangojs',
-#     'packages': ('admin',),
-# }
-
 urlpatterns = [
+    path('opensearch.xml/', TemplateView.as_view(template_name='market/opensearch.xml'), name='opensearch'),
     path('robots.txt', TemplateView.as_view(template_name='market/robots.txt', content_type='text/plain')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('api/', include(router.urls)),

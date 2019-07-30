@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<OutputEncoding>UTF-8</OutputEncoding>
+	<InputEncoding>UTF-8</InputEncoding>
+	<AdultContent>false</AdultContent>
+	<Language>en-us</Language>
+	<ShortName>Unical.kg</ShortName>
+	<LongName>Google Search of Unical.kg</LongName>
+	<Description>Unical.kg - интернет магазин товаров для дома. Здесь вы можете найти все вам необходимо для отдыха и уюта.</Description>
+	<Tags>Надувные бассейны Товары для дома вентиляторы посуды</Tags>
+	<Url type="application/rss+xml" template="http://www.google.com/search?q=site:unical.kg {searchTerms}"/>
+	<Url type="text/html" template="https://unical.kg/search?search={searchTerms}"/>
+	<Image height="16" width="16" type="image/x-icon">https://unical.kg/static/img/core-img/favicon.ico</Image>
+	<Image height="16" width="16" type="image/vnd.microsoft.icon">https://unical.kg/static/img/core-img/favicon.ico</Image>
+	<Query role="example" searchTerms="Товары для дома" />
+	<SyndicationRight>open</SyndicationRight>
+	<Contact>narynbeknurt@gmail.com</Contact>
+</OpenSearchDescription>
