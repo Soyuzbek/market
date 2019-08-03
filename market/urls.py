@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django import get_version
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
@@ -66,6 +67,10 @@ sitemaps = {
     'product': ProductSitemap,
     'category': CategorySitemap
 }
+js_info_dict = {
+    'packages': ('.',),
+}
+
 urlpatterns = [
     path('opensearch.xml/', TemplateView.as_view(template_name='market/opensearch.xml'), name='opensearch'),
     path('robots.txt', TemplateView.as_view(template_name='market/robots.txt', content_type='text/plain')),
@@ -85,12 +90,14 @@ urlpatterns = [
     path('orders/', pro_views.OrderList.as_view(), name='orders'),
     path('order/<int:pk>/', pro_views.OrderDetail.as_view(), name='order'),
     path('api-auth/', include('rest_framework.urls')),
-    # path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    path('jsi18n/',
-         cache_page(86400, key_prefix='js18n-%s' % get_version())(JavaScriptCatalog.as_view()),
-         name='javascript-catalog'),
+    path('jsi18n/', JavaScriptCatalog.as_view(packages=js_info_dict), name='javascript-catalog'),
+    # path('jsi18n/',
+    #      cache_page(86400, key_prefix='js18n-%s' % get_version())(JavaScriptCatalog.as_view()),
+    #      name='javascript-catalog'),
 ]
-
+urlpatterns += i18n_patterns(
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
